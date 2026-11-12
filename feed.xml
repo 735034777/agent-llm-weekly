@@ -7,10 +7,10 @@
     <language>zh-CN</language>
     <atom:link href="https://raw.githubusercontent.com/735034777/agent-llm-weekly/main/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>第 001 期｜记忆、训练与可恢复执行</title>
+      <title>第 001 期｜高 star Agent：从插件架构到工作流追踪</title>
       <link>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-001</link>
       <guid>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-001</guid>
-      <description>创刊号回顾上一完整自然周，精选 6 条更新与 2 个长期参考入口。本期重点是 Agent 如何保留经验、从不同执行方式中学习，以及怎样在任务中断后正确继续。论文结果、工程经验和版本修复分别呈现，不把它们混成同一种能力突破。</description>
+      <description>修订后的创刊号以 4 个高 star 项目的实质更新开篇，再看记忆、训练与评测。共 8 条本周更新和 2 个长期参考，覆盖 2026-11-02—11-08。项目 star 是 11 月 12 日查询快照，不是覆盖周末的历史数值。</description>
       <pubDate>Thu, 12 Nov 2026 09:00:00 +0800</pubDate>
     </item>
   </channel>

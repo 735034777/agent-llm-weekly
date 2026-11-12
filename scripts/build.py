@@ -34,6 +34,12 @@ def public_url(value):
     return parsed.scheme == "https" and bool(parsed.netloc) and not parsed.username
 
 
+def validate_github(snapshot, today):
+    require(re.fullmatch(r"[\w.-]+/[\w.-]+", snapshot["repository"]), "GitHub 仓库名不合法")
+    require(type(snapshot["stars"]) is int and snapshot["stars"] >= 0, "star 快照必须为非负整数")
+    require(iso(snapshot["checked_on"]) <= today, "star 查询日期不能在未来")
+
+
 def validate(issues, config, today=None):
     today = today or datetime.now(TZ).date()
     require(config["timezone"] == "Asia/Shanghai", "排期必须使用 Asia/Shanghai")
@@ -43,6 +49,8 @@ def validate(issues, config, today=None):
     require(len(source_ids) == len(sources), "信息源 ID 重复")
     for source in sources:
         require(public_url(source["url"]), f"信息源链接错误：{source['id']}")
+        if "github" in source:
+            validate_github(source["github"], today)
     require(bool(issues), "没有期刊数据")
     news_ids = set()
     previous_end = None
@@ -87,6 +95,8 @@ def validate(issues, config, today=None):
                 for link in entry["links"]:
                     require(link["label"].strip() and public_url(link["url"]), f"{key}: 来源链接错误")
                 verification = entry["verification"]
+                if "github" in entry:
+                    validate_github(entry["github"], today)
                 require(verification["level"] in {"source-reviewed", "reproduced"}, f"{key}: 核查等级错误")
                 checked = iso(verification["checked_on"])
                 require(checked <= today and (event_date is None or checked >= event_date), f"{key}: 核查日期错误")
@@ -138,6 +148,7 @@ def render_issue(issue, source_names=None):
             if entry["evergreen"] and entry["date"]:
                 label += f" · 原文 {entry['date']}"
             lines += [f"### {count}. {entry['title']}", "", f"`{label}` · " + " / ".join(entry["tags"]), "",
+                      *([f"⭐ **{entry['github']['stars']:,}** · 查询日期 {entry['github']['checked_on']} · [{entry['github']['repository']}](https://github.com/{entry['github']['repository']})", ""] if "github" in entry else []),
                       entry["summary"], "", f"**为什么值得看：** {entry['why']}", "",
                       f"**适用范围与限制：** {entry['limits']}", "",
                       " · ".join(f"[{link['label']}]({link['url']})" for link in entry["links"]), ""]
@@ -176,13 +187,27 @@ def build_outputs(issues, config, readme):
     archive = ["# 往期归档", "", "[返回首页](README.md)", "", "| 期号 | 覆盖时间 | 主题 | 发布日期 |", "| --- | --- | --- | --- |"]
     archive += [f"| [{i['id']}](content/{i['id']}.md) | {i['start']} — {i['end']} | {i['title']} | {i['published_on']} |" for i in reversed(issues)]
     outputs["ARCHIVE.md"] = "\n".join(archive) + "\n"
-    source_lines = ["# 信息源目录", "", "[返回首页](README.md) · [编辑准则](docs/EDITORIAL.md)", "",
+    source_lines = ["# 信息源目录", "", "[返回首页](README.md) · [高 star 项目池](PROJECTS.md) · [编辑准则](docs/EDITORIAL.md)", "",
                     "下面是计划追踪的入口。每期实际检查情况记录在该期 JSON 的 source_checks 中；列入目录不代表每期都能完整访问。优先级 1 每周优先检查，优先级 2 用于补充。", ""]
     for category in dict.fromkeys(s["category"] for s in config["sources"]):
         source_lines += [f"## {category}", "", "| 来源 | 优先级 | 检查方式 |", "| --- | --- | --- |"]
         source_lines += [f"| [{s['name']}]({s['url']}) | {s['priority']} | {s['method']} |" for s in config["sources"] if s["category"] == category]
         source_lines.append("")
     outputs["SOURCES.md"] = "\n".join(source_lines)
+    project_lines = ["# 高 star 项目追踪池", "", "[返回首页](README.md) · [信息源目录](SOURCES.md)", "",
+                     "项目栏目优先选择 50,000 star 以上的活跃项目，通常不低于 30,000；先有实质技术变化，再决定是否入刊。论文和评测不受 star 门槛约束。", "",
+                     "以下数值来自 GitHub REST API 的查询日快照，不是历史周末值。最近推送只能说明仓库有活动，不能独立证明维护质量。合集的 star 不属于其收录的子项目。", ""]
+    tracked = [s for s in config["sources"] if "github" in s]
+    for collections in (False, True):
+        project_lines += ["## 项目发现合集" if collections else "## 重点项目", "", "| 项目 | Star | 查询日期 | 关注方向 | 最近推送（UTC） |", "| --- | ---: | --- | --- | --- |"]
+        for source in sorted(tracked, key=lambda s: s["github"]["stars"], reverse=True):
+            if (source["category"] == "项目发现合集") != collections:
+                continue
+            github = source["github"]
+            project_lines.append(f"| [{source['name']}](https://github.com/{github['repository']}) | {github['stars']:,} | {github['checked_on']} | {source['focus']} | {github['pushed_at'][:10]} |")
+        project_lines.append("")
+    project_lines += ["这是观察池，不是能力排名。n8n 等采用 fair-code 或自定义许可的公开项目，应按原仓库许可说明区分；加入名单不代表所有项目使用相同开源许可。", ""]
+    outputs["PROJECTS.md"] = "\n".join(project_lines)
     ET.register_namespace("atom", "http://www.w3.org/2005/Atom")
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
