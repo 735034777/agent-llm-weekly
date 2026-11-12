@@ -1,32 +1,15 @@
-# 高 star 项目追踪池
+# 开源项目索引
 
-[返回首页](README.md) · [信息源目录](SOURCES.md)
+[首页](README.md) · [信息源](SOURCES.md)
 
-项目栏目优先选择 50,000 star 以上的活跃项目，通常不低于 30,000；先有实质技术变化，再决定是否入刊。论文和评测不受 star 门槛约束。
+按入刊顺序收录，方便回看。以用途、特色、文档、可用性和维护情况选稿；star 是查询日的关注度快照，不设硬门槛，也不是能力排名。发现条目不代表项目本周首次发布。
 
-以下数值来自 GitHub REST API 的查询日快照，不是历史周末值。最近推送只能说明仓库有活动，不能独立证明维护质量。合集的 star 不属于其收录的子项目。
+| 项目 | 方向 | Star 快照 | 查询日期 | 许可 | 入选期刊 |
+| --- | --- | ---: | --- | --- | --- |
+| [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | Skills / 图表 | 66,627 | 2026-11-12 | MIT | [001](content/001.md#item-diagram-design-discovery) |
+| [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | 语音 / 创作工具 | 108,663 | 2026-11-12 | AGPL-3.0 | [001](content/001.md#item-voicestudio-discovery) |
+| [google/artemis](https://github.com/google/artemis) | 手机自动化 / MCP | 17,296 | 2026-11-12 | Apache-2.0 | [001](content/001.md#item-artemis-discovery) |
+| [Friedrich-M/UniMate](https://github.com/Friedrich-M/UniMate) | 3D / 动作生成 | 2,687 | 2026-11-12 | MIT | [001](content/001.md#item-unimate-discovery) |
+| [google-research/harness2](https://github.com/google-research/harness2) | Agent / 开发工具 | 23,508 | 2026-11-12 | Apache-2.0 | [001](content/001.md#item-harness2-discovery) |
 
-## 重点项目
-
-| 项目 | Star | 查询日期 | 关注方向 | 最近推送（UTC） |
-| --- | ---: | --- | --- | --- |
-| [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) | 279,371 | 2026-11-12 | Agent 执行系统 | 2026-11-11 |
-| [Hermes Agent](https://github.com/NousResearch/hermes-agent) | 262,829 | 2026-11-12 | 通用 Agent | 2026-11-12 |
-| [n8n](https://github.com/n8n-io/n8n) | 210,256 | 2026-11-12 | 工作流自动化 | 2026-11-12 |
-| [Firecrawl](https://github.com/firecrawl/firecrawl) | 201,066 | 2026-11-12 | Agent 数据获取 | 2026-11-12 |
-| [Ollama](https://github.com/ollama/ollama) | 186,742 | 2026-11-12 | 本地模型运行 | 2026-11-12 |
-| [Dify](https://github.com/langgenius/dify) | 161,019 | 2026-11-12 | Agent 应用平台 | 2026-11-12 |
-| [LangChain](https://github.com/langchain-ai/langchain) | 149,395 | 2026-11-12 | Agent 开发框架 | 2026-11-12 |
-| [Browser Use](https://github.com/browser-use/browser-use) | 120,794 | 2026-11-12 | 浏览器 Agent | 2026-11-12 |
-| [vLLM Releases](https://github.com/vllm-project/vllm) | 96,796 | 2026-11-12 | 模型推理服务 | 2026-11-12 |
-| [OpenHands Releases](https://github.com/OpenHands/OpenHands) | 93,297 | 2026-11-12 | 编程 Agent | 2026-11-12 |
-| [LangGraph Releases](https://github.com/langchain-ai/langgraph) | 44,838 | 2026-11-12 | Agent 状态与编排 | 2026-11-12 |
-
-## 项目发现合集
-
-| 项目 | Star | 查询日期 | 关注方向 | 最近推送（UTC） |
-| --- | ---: | --- | --- | --- |
-| [Awesome LLM Apps](https://github.com/Shubhamsaboo/awesome-llm-apps) | 144,470 | 2026-11-12 | 应用案例合集 | 2026-11-11 |
-| [Awesome AI Agents](https://github.com/e2b-dev/awesome-ai-agents) | 30,908 | 2026-11-12 | Agent 导航合集 | 2026-08-21 |
-
-这是观察池，不是能力排名。n8n 等采用 fair-code 或自定义许可的公开项目，应按原仓库许可说明区分；加入名单不代表所有项目使用相同开源许可。
+代码许可不自动覆盖模型权重、训练数据或素材；具体条件见项目条目和原仓库。

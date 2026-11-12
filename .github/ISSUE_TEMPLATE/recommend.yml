@@ -1,18 +1,18 @@
 name: 推荐来源或项目
-description: 提交可核实的论文、工程文章、开源项目或评测
+description: 推荐论文与研究、全 AI 新闻、人物公开动态、Skills 或开源项目
 title: '[推荐] '
 body:
   - type: input
     id: source
     attributes:
       label: 原始链接
-      description: 优先提供作者、论文或官方仓库链接。
+      description: 优先提供论文、官方公告、作者原帖、可靠报道或原始仓库链接。
     validations:
       required: true
   - type: textarea
     id: reason
     attributes:
       label: 更新日期与推荐理由
-      description: 发生了什么变化，为什么值得读？
+      description: 说明事件或发表日期；已有项目也可推荐，请说明用途、特色与上手入口。
     validations:
       required: true

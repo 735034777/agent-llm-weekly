@@ -1,501 +1,807 @@
 {
+  "schema_version": 2,
   "id": "001",
-  "title": "高 star Agent：从插件架构到工作流追踪",
+  "title": "记忆需要整理，AI 走进现实",
   "start": "2026-11-02",
   "end": "2026-11-08",
   "published_on": "2026-11-12",
-  "summary": "修订后的创刊号以 4 个高 star 项目的实质更新开篇，再看记忆、训练与评测。共 8 条本周更新和 2 个长期参考，覆盖 2026-11-02—11-08。项目 star 是 11 月 12 日查询快照，不是覆盖周末的历史数值。",
-  "lead_id": "dify-1.19.0",
-  "sections": [
+  "summary": "这一期从 Agent 怎样整理记忆谈起，再看模型发布、国家投入、用电与社区争议。开源部分挑了五个用途不同的项目，覆盖图表 Skill、语音、手机自动化、3D 动画和 Agent 工具。共 13 条精选，约 10—15 分钟；新闻回顾 11 月 2—8 日，研究采用近期正式发表或发布的材料，项目按 11 月 12 日的资料快照介绍。",
+  "highlights": [
     {
-      "title": "高 star 项目更新",
-      "entries": [
-        {
-          "id": "dify-1.19.0",
-          "title": "Dify 1.19.0：把嵌套工作流的内部步骤追踪出来",
-          "date": "2026-11-04",
-          "date_label": "版本发布",
-          "tags": [
-            "高 star",
-            "工作流",
-            "可观察性"
-          ],
-          "summary": "Dify 是用于构建 Agent 工作流和 RAG 应用的平台。1.19.0 将被调用工作流内部的步骤纳入外部追踪树，并保留对应的大模型上下文；应用导出包也可以携带工作流工具及其依赖。",
-          "why": "适合已经搭建多层 Agent 工作流的人：可以定位具体在哪次工具调用、哪一步模型请求中出错，也更容易迁移完整应用。",
-          "limits": "新的追踪结构只应用于新执行，旧记录不会回填；升级还涉及追踪队列和应用包格式。本刊核查官方说明，未执行迁移或性能测试。",
-          "links": [
-            {
-              "label": "官方 Release",
-              "url": "https://github.com/langgenius/dify/releases/tag/1.19.0"
-            },
-            {
-              "label": "官方仓库",
-              "url": "https://github.com/langgenius/dify"
-            }
-          ],
-          "github": {
-            "repository": "langgenius/dify",
-            "stars": 161019,
-            "checked_on": "2026-11-12"
-          },
-          "verification": {
-            "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": false
-        },
-        {
-          "id": "deepseek-harness-0.2.2-rc1",
-          "title": "DeepSeek Harness：插件扩展、跨 CLI 委派与工作树",
-          "date": "2026-11-04",
-          "date_label": "候选版发布",
-          "tags": [
-            "高 star",
-            "插件架构",
-            "候选版"
-          ],
-          "summary": "DeepSeek Harness 采用插件化的 Agent 执行架构。0.2.2-rc.1 增加实验性的本机 Codex／Claude CLI 子任务委派、上下文与耗时统计，以及独立 Git 工作树和变更评审支持。",
-          "why": "它把工具扩展、任务委派、执行观察和代码评审放进同一运行环境，适合研究一个完整 Agent 产品如何组织这些能力。",
-          "limits": "本条是候选版，项目仍处于开发预览，官方明确提示可能出现不兼容变更；列出的新增能力含实验性插件，不能当成稳定功能保证。",
-          "links": [
-            {
-              "label": "官方 Release",
-              "url": "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v0.2.2-rc.1"
-            },
-            {
-              "label": "官方仓库",
-              "url": "https://github.com/deepseek-ai/deepseek-harness"
-            }
-          ],
-          "github": {
-            "repository": "deepseek-ai/deepseek-harness",
-            "stars": 279371,
-            "checked_on": "2026-11-12"
-          },
-          "verification": {
-            "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": false
-        },
-        {
-          "id": "hermes-agent-0.23.0",
-          "title": "Hermes Agent v0.23.0：让多种客户端共用一份会话",
-          "date": "2026-11-05",
-          "date_label": "版本发布",
-          "tags": [
-            "高 star",
-            "会话管理",
-            "通用 Agent"
-          ],
-          "summary": "Hermes Agent 支持记忆、技能和多种交互入口。v0.23.0 强化由同一网关统一管理会话，让终端、桌面、消息入口和定时任务共享队列与历史，并提供浏览器工作区及可插拔的子 Agent 委派。",
-          "why": "更值得关注的是会话归属与状态一致性：同一任务从不同界面进入时，如何减少重复执行和历史丢失，而不只是再增加一种聊天入口。",
-          "limits": "版本还包含插件迁移与运行方式变化。官方变更说明不是独立可靠性评测；本刊没有验证多客户端并发，也不将“自我改进”宣传等同于已证明的持续能力增长。",
-          "links": [
-            {
-              "label": "官方 Release",
-              "url": "https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.0"
-            },
-            {
-              "label": "官方仓库",
-              "url": "https://github.com/NousResearch/hermes-agent"
-            }
-          ],
-          "github": {
-            "repository": "NousResearch/hermes-agent",
-            "stars": 262829,
-            "checked_on": "2026-11-12"
-          },
-          "verification": {
-            "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": false
-        },
-        {
-          "id": "langgraph-1.2.20",
-          "title": "LangGraph 1.2.20：让恢复操作对应到正确的中断",
-          "date": "2026-11-05",
-          "date_label": "版本发布",
-          "tags": [
-            "人工介入",
-            "状态恢复",
-            "版本更新"
-          ],
-          "summary": "LangGraph 核心包 1.2.20 为同一任务中的每个 interrupt()（暂停任务、等待外部输入的调用）提供独立 ID，并增加拒绝过期中断回答的严格恢复模式。本期引用核心包的 Release，不混用同一仓库里的 SDK 或 CLI 版本号。",
-          "why": "对于需要人工确认、可能暂停多次的 Agent，恢复时把答复接到正确状态，是值得单独测试的正确性问题。",
-          "limits": "这是执行状态管理的更新，不意味着模型推理能力提高。本刊未执行升级测试，接入前仍需核对调用方式与现有持久化状态的兼容性。",
-          "links": [
-            {
-              "label": "官方 Release",
-              "url": "https://github.com/langchain-ai/langgraph/releases/tag/1.2.20"
-            }
-          ],
-          "verification": {
-            "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": false,
-          "github": {
-            "repository": "langchain-ai/langgraph",
-            "stars": 44838,
-            "checked_on": "2026-11-12"
-          }
-        }
-      ]
+      "entry_id": "anthropic-memory-20261106",
+      "text": "研究：记忆里的错误，怎样才能被 Agent 发现并纠正？"
     },
     {
-      "title": "Agent 工程",
+      "entry_id": "inkling2-small-20261105",
+      "text": "新闻：Inkling 2 Small 发布，平台可用与权重开放分开看。"
+    },
+    {
+      "entry_id": "diagram-design-discovery",
+      "text": "项目：diagram-design，让技术说明变成可编辑的图。"
+    }
+  ],
+  "sections": [
+    {
+      "kind": "research",
+      "title": "论文与研究",
+      "intro": "本期选两篇近期正式发表的期刊论文与一篇实验室研究博客。日期保留原始发表口径；研究博客不等同于同行评审论文。",
       "entries": [
         {
-          "id": "anthropic-memory-2026-11-06",
-          "title": "Agent 记忆：把记录、整理与取用分开设计",
+          "id": "anthropic-memory-20261106",
+          "title": "Agent 的记忆，也需要一次离线整理",
           "date": "2026-11-06",
-          "date_label": "文章发布",
+          "date_label": "原文发布",
           "tags": [
-            "记忆",
-            "上下文",
-            "工程观察"
+            "Agent"
           ],
-          "summary": "Anthropic 将跨会话记忆拆成原始记录、记忆笔记、知识表示和预先注入的上下文，并讨论 dreaming（在交互间隙整理记忆）机制。文章展示了用原始记录纠正错误笔记、整理 wiki 知识页面和调整注入内容的案例。",
-          "why": "值得借鉴的是记忆维护流程：不仅决定存什么，还要能回查证据、修正错误，并控制每次加载的内容。",
-          "limits": "这是作者的案例与评测报告，不能推导出记忆越多效果越好。维护记忆需要额外计算；部分任务中 wiki 没有明显收益。",
+          "publication": {
+            "type": "blog",
+            "venue": "Anthropic"
+          },
+          "summary": "Anthropic 把跨会话记忆拆成几层：保留原始经历的日志、提炼经验的笔记、重新组织知识的表示，以及每次会话提前加载的上下文。文章讨论的 dreaming，是让 Agent 在任务间隙回看这些材料，修正错误、合并笔记或生成新的组织方式；它改变的是可读写的外部记忆，不是模型权重。",
+          "insight": "最值得细读的是“错误记忆如何被纠正”的案例。Claude 在游戏中记错地标位置，之后反复按错误笔记行动；离线整理时对照原始轨迹，才发现笔记与经历不符。对工程实践的启发是：记忆不仅要能检索，还要留有证据、更新和撤回的路径。文章也比较了不同模型保存信息的方式：能从当前屏幕直接读取的状态，未必值得长期保存。",
+          "limits": "这些是作者在特定任务和模型上的实验与案例，不能据此断言“加一层记忆就能普遍提分”。Wiki 等更复杂的组织方式也并非总有收益，还会增加计算与维护开销。本期未复现。",
           "links": [
             {
-              "label": "原始文章",
+              "label": "原文",
               "url": "https://www.anthropic.com/research/components-of-agent-memory"
             }
           ],
           "verification": {
             "level": "source-reviewed",
-            "checked_on": "2026-11-12"
+            "checked_on": "2026-11-12",
+            "scope": "读取官方全文中的日志、笔记、记忆表示、dreaming 纠错案例及限制；区分外部记忆与权重更新。未复现，没有引用跨模型性能提升数字。"
+          }
+        },
+        {
+          "id": "nature-health-agent-20261021",
+          "title": "Nature：把个人健康 Agent 拆成三种专业角色",
+          "date": "2026-10-21",
+          "date_label": "正式发表",
+          "tags": [
+            "Agent"
+          ],
+          "publication": {
+            "type": "journal",
+            "venue": "Nature",
+            "status": "published",
+            "evidence_url": "https://www.nature.com/articles/s41586-026-11161-8"
           },
-          "evergreen": false
+          "summary": "这项研究把健康问答拆成数据分析、领域知识和健康教练三个子 Agent，再由系统组织协作：一个处理可穿戴设备和健康记录，一个结合知识解释信息，一个负责多轮沟通与目标跟进。作者使用 11 类基准任务，并结合专家和普通用户评价，考察各组件与完整系统。",
+          "insight": "适合关注多 Agent 系统的人读：论文先从用户需求确定角色，再为不同能力设计评价方式。编辑更关注这种“需求—分工—评测”的对应关系，而不是仅凭 Agent 数量判断系统是否更强。",
+          "limits": "本条按 10 月 21 日的期刊正式发表日期收录，早期预印本已在 2025 年公开。出版站直连受限，本期核对的是出版方索引中的摘要、架构与评价段落及作者机构条目，未完整审阅补充材料；这些结果也不等于临床效果验证。",
+          "links": [
+            {
+              "label": "期刊论文",
+              "url": "https://www.nature.com/articles/s41586-026-11161-8"
+            },
+            {
+              "label": "作者机构条目",
+              "url": "https://research.google/pubs/the-anatomy-of-a-personal-health-agent/"
+            },
+            {
+              "label": "早期预印本",
+              "url": "https://arxiv.org/abs/2508.20148"
+            }
+          ],
+          "verification": {
+            "level": "source-partial",
+            "checked_on": "2026-11-12",
+            "scope": "出版方索引确认正式发表日、三类子 Agent 与 11 类任务；检索读取摘要、架构和评价段落，作者机构与早期 arXiv 记录交叉核对。Nature 直连跳转失败，未下载补充材料，不作全文精读或临床验证声明。"
+          }
+        },
+        {
+          "id": "nature-humanlike-tests-20261026",
+          "title": "像人，和答得对，是两种不同的能力",
+          "date": "2026-10-26",
+          "date_label": "正式发表",
+          "tags": [
+            "评测"
+          ],
+          "publication": {
+            "type": "journal",
+            "venue": "Nature Human Behaviour",
+            "status": "published",
+            "evidence_url": "https://www.nature.com/articles/s41562-026-02590-6"
+          },
+          "summary": "研究在图像描述、词语联想、对话，以及颜色判断、目标检测、注意力预测等任务中，比较人类与 AI 回答的可辨识程度。摘要报告，实验收集了 636 名人类和 37 个 AI 系统的回答；人类评审判断“谁是人”时，并不总比机器评审可靠。",
+          "insight": "论文发现，模仿人类的能力与常规性能指标关联较弱。这给对话产品和 Agent 评测补了一条观察轴：用户感觉自然，不代表任务更准确；高分模型也未必最像人。",
+          "limits": "这是近期正式发表的研究，不应把“更难辨认”扩大成已经证明通用智能或意识。出版站直连受限，本期仅核对出版方与 PubMed 摘要、发表信息，没有逐项检查全部实验和附录。",
+          "links": [
+            {
+              "label": "期刊论文",
+              "url": "https://www.nature.com/articles/s41562-026-02590-6"
+            },
+            {
+              "label": "PubMed 摘要",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42934400/"
+            }
+          ],
+          "verification": {
+            "level": "source-partial",
+            "checked_on": "2026-11-12",
+            "scope": "通过出版方索引与 PubMed 摘要交叉核对 2026-10-26 正式发表日、任务、样本与主要结论；Nature 直连受限，未完整读取方法与附录。"
+          }
         }
       ]
     },
     {
-      "title": "模型与研究",
+      "kind": "news",
+      "title": "新闻动态",
       "entries": [
         {
-          "id": "harness-s-2611.04277v1",
-          "title": "Harness-S：把不同执行系统的成功经验学进模型",
-          "date": "2026-11-03",
-          "date_label": "论文首发",
+          "id": "inkling2-small-20261105",
+          "title": "Thinking Machines 发布 Inkling 2 Small，权重当时尚未开放",
+          "date": "2026-11-05",
+          "date_label": "发布公告",
+          "date_basis": "原发布页面标注 2026-11-05；页面未提供可核实的精确时区时保留来源公历日期，不假定北京时间零点。",
           "tags": [
-            "Agent 训练",
-            "强化学习",
-            "预印本"
+            "模型",
+            "产品"
           ],
-          "summary": "执行系统（harness）指模型外围的提示、工具接口和运行规则。Harness-S 准备针对不同失败原因的系统变体，在基础系统的尝试全部失败时，用变体生成训练轨迹，再以强化学习更新同一模型。作者在 AppWorld、SWE-Gym 和 DBBench 中报告：回到原始系统后，训练收益仍能保留。",
-          "why": "它将一个工程问题变成训练问题：更合适的工具接口或执行规则，能否帮助模型学到可迁移的行为，而不只是改善当次结果？",
-          "limits": "结果来自论文设定的模型与环境，本刊未复现。比较总成本时还需计入变体构建、路由和训练，不能只比较最终执行次数。",
+          "summary": "Thinking Machines 推出第二代模型系列的首款 Inkling 2 Small，支持图像输入和可调推理力度。发布当日可通过 Tinker Playground 体验，也可在 Tinker 上微调和采样。官方展示了编程、视觉理解和知识工作等用例。",
+          "context": "对想做定制模型的人，更值得关注的是“模型与训练平台一起提供”的路线。截至这份 11 月 5 日公告，权重仍为闭源；Apache 2.0 权重是完成外部安全测试后的后续计划，本期不把承诺写成已经开放下载。",
           "links": [
             {
-              "label": "论文 v1",
-              "url": "https://arxiv.org/abs/2611.04277v1"
-            },
-            {
-              "label": "作者代码",
-              "url": "https://github.com/DeepExperience/Harness-S"
+              "label": "发布公告",
+              "url": "https://thinkingmachines.ai/news/inkling-2-small/"
             }
           ],
           "verification": {
             "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": false
+            "checked_on": "2026-11-12",
+            "scope": "读取官方发布日期、使用入口、能力介绍和开放权重计划。按覆盖周内公告状态报道，不用发布周之后的进展改写历史。未独立测试模型。"
+          }
         },
         {
-          "id": "axion-2611.03233v2",
-          "title": "Axion 1.0：从独立推理到工具交互的三阶段训练",
+          "id": "openai-grid-20261102",
+          "title": "OpenAI 提出让数据中心在电网吃紧时主动减负荷",
           "date": "2026-11-02",
-          "date_label": "论文首发",
+          "date_label": "发布公告",
+          "date_basis": "原发布页面标注 2026-11-02；页面未提供可核实的精确时区时保留来源公历日期，不假定北京时间零点。",
           "tags": [
-            "后训练",
-            "Agent 模型",
-            "预印本"
+            "算力",
+            "能源"
           ],
-          "summary": "Axion 1.0 报告两阶段监督微调加强化学习的训练路线：先构造适合基础模型的推理数据，再加入可自动验证的工具任务，最后强化长程推理与环境交互。论文首次提交于 11 月 2 日，本期参考 11 月 3 日的 v2。",
-          "why": "适合关注 Agent 模型训练的人阅读：重点看数据如何生成、验证和过滤，以及两类推理任务如何衔接，而不只看结果表。",
-          "limits": "作者宣称开放权重之外的训练配方和代码；本期核查的是论文中的方法与开放声明，未逐项验证全部资源，也未复现性能。步骤少不等于训练成本低。",
+          "summary": "OpenAI 公布 Grid Protectors Program，计划与电力公司和监管部门协作，让未来计算园区在电网紧张时减少用电。官方以仍在开发中的佐治亚州 Effingham County 园区为试点，介绍其与 Georgia Power 的灵活用电安排。",
+          "context": "AI 算力扩张正在把电网容量和居民电价推到台前。这里报道的是项目安排与承诺；节省成本、改善供电等实际效果，还需要园区投运后的数据。",
           "links": [
             {
-              "label": "论文 v2",
-              "url": "https://arxiv.org/abs/2611.03233v2"
-            },
-            {
-              "label": "论文全文",
-              "url": "https://arxiv.org/html/2611.03233v2"
+              "label": "官方公告",
+              "url": "https://openai.com/index/grid-protectors-program/"
             }
           ],
           "verification": {
             "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": false
-        }
-      ]
-    },
-    {
-      "title": "评测与观察",
-      "entries": [
-        {
-          "id": "frontierphysics-2611.06910v1",
-          "title": "FrontierPhysics：评估从文献到研究产出的完整过程",
-          "date": "2026-11-04",
-          "date_label": "论文首发",
-          "tags": [
-            "科研 Agent",
-            "端到端评测",
-            "预印本"
-          ],
-          "summary": "FrontierPhysics 用物理研究任务评估文献检索、研究计划、实验执行和结构化研究产出。作者结合确定性验证与专家制定的评分标准，试图同时衡量结果正确性和研究质量。",
-          "why": "值得看的是它如何把“会回答问题”与“能完成研究过程”分开评价。设计自己的科研 Agent 测试集时，可以参考任务构成和评分依据。",
-          "limits": "“可发表性”是该基准定义下的评价，不等于通过真实期刊审稿。结果受任务选择、执行配置和评分标准影响，不能直接推断所有学科的研究能力。",
-          "links": [
-            {
-              "label": "论文 v1",
-              "url": "https://arxiv.org/abs/2611.06910v1"
-            },
-            {
-              "label": "评测方法全文",
-              "url": "https://arxiv.org/html/2611.06910v1"
-            }
-          ],
-          "verification": {
-            "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": false
-        }
-      ]
-    },
-    {
-      "title": "长期参考",
-      "entries": [
-        {
-          "id": "reference-swebench",
-          "title": "SWE-bench：读榜单之前，先看测试使用了什么系统",
-          "date": null,
-          "tags": [
-            "编程评测",
-            "阅读方法"
-          ],
-          "summary": "SWE-bench 提供多个任务集合和评测视图。官方站点区分原始集合、Lite、Verified、多语言与多模态等设置，也提供在相同 mini-SWE-agent 环境下比较模型的视图。",
-          "why": "同一个项目名称不代表相同的评测条件。记录具体子集和执行系统，才有可能判断提升来自模型还是外围设计。",
-          "limits": "本条是创刊时建立的阅读入口，没有声称榜单在本周发生变化。修复已有仓库问题的成绩，也不能直接代表从零开发完整产品的能力。",
-          "links": [
-            {
-              "label": "官方评测入口",
-              "url": "https://www.swebench.com/"
-            }
-          ],
-          "verification": {
-            "level": "source-reviewed",
-            "checked_on": "2026-11-12"
-          },
-          "evergreen": true
+            "checked_on": "2026-11-12",
+            "scope": "读取 11 月 2 日官方全文，核实 demand response 含义和园区仍在开发的状态；不引用推算居民节省金额，也未将其当成已实现效果。"
+          }
         },
         {
-          "id": "reference-metr",
-          "title": "METR：持续跟踪任务跨度与实际工作影响",
-          "date": null,
+          "id": "korea-ai-budget-20261102",
+          "title": "韩国提出扩大 AI 投入，芯片与物理 AI 同列预算重点",
+          "date": "2026-11-02",
+          "date_label": "报道日期",
+          "date_basis": "原发布页面标注 2026-11-02；页面未提供可核实的精确时区时保留来源公历日期，不假定北京时间零点。",
           "tags": [
-            "能力评测",
-            "长期观察"
+            "产业",
+            "公共预算"
           ],
-          "summary": "METR 的公开研究涉及 Agent 任务完成时间跨度、技术工作生产率和评测方法。它提供了一个从实验设计和工作影响观察模型能力的入口。",
-          "why": "建议读研究设计、样本选择和不确定性说明，再看汇总图；尤其留意测量的是任务成功率、人的工作时间，还是人的主观感受。",
-          "limits": "本条属于长期参考，不表示本周有新的 METR 结论。不同研究测量的对象不同，不能把时间跨度指标直接换算成岗位替代比例。",
+          "summary": "据路透社 11 月 2 日报道，韩国总统李在明在国会争取下一年度预算支持时，提出向 AI，以及半导体、物理 AI、AI 数据中心等重点方向投入 21.3 万亿韩元，约合 159.7 亿美元。",
+          "context": "这笔金额覆盖多个方向，不能全部理解为购买大模型或 GPU 的支出；报道时仍处于争取预算批准阶段。它也说明，国家层面的 AI 竞争已同时涉及软件能力、制造业和基础设施。",
           "links": [
             {
-              "label": "机构主页",
-              "url": "https://metr.org/"
-            },
-            {
-              "label": "研究目录",
-              "url": "https://metr.org/research/"
+              "label": "路透社报道（MarketScreener 转载）",
+              "url": "https://in.marketscreener.com/news/south-korea-s-lee-vows-to-make-bold-ai-investment-in-record-budget-push-ce785fd8dd81f320"
             }
           ],
           "verification": {
             "level": "source-reviewed",
-            "checked_on": "2026-11-12"
+            "checked_on": "2026-11-12",
+            "scope": "读取注明 Reuters 署名的转载，核对 11 月 2 日、21.3 万亿韩元、投入范围及 seeking approval 状态。没有声称预算已经通过。"
+          }
+        },
+        {
+          "id": "google-wearable-hypertension-20261105",
+          "title": "Google 把智能手表用于识别高血压迹象",
+          "date": "2026-11-05",
+          "date_label": "研究介绍",
+          "date_basis": "原发布页面标注 2026-11-05；页面未提供可核实的精确时区时保留来源公历日期，不假定北京时间零点。",
+          "tags": [
+            "健康 AI",
+            "可穿戴"
+          ],
+          "summary": "Google Research 介绍了一套结合手表光学脉搏信号与加速度数据的 AI 系统。它汇集多天的生理信号，识别持续性的高血压迹象；研究关注的是长期状态分类，不是随时给出一次准确的收缩压、舒张压读数。",
+          "context": "这条进展展示了生成式 AI 之外的应用路径：传感器数据与机器学习也在改变健康产品。官方称研究已为 Google Health 的相关功能提供参考，但文章中的研究结果不代表所有手表、地区和人群都已获相同支持，也不能替代诊断。",
+          "links": [
+            {
+              "label": "Google Research 原文",
+              "url": "https://research.google/blog/detecting-signs-of-hypertension-using-wearable-sensors/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-12",
+            "scope": "读取 11 月 5 日官方研究介绍中的传感器、跨天聚合、分类目标及产品关联；未完整审阅关联医学论文，未引用准确率，也未作诊疗建议。"
+          }
+        },
+        {
+          "id": "europe-data-center-protests-20261106",
+          "title": "欧洲数据中心抗议，把 AI 的社会成本带到工地现场",
+          "date": "2026-11-06",
+          "date_label": "报道日期",
+          "date_basis": "原发布页面标注 2026-11-06；页面未提供可核实的精确时区时保留来源公历日期，不假定北京时间零点。",
+          "tags": [
+            "社会",
+            "数据中心"
+          ],
+          "summary": "Tom’s Hardware 援引路透社报道，约百名抗议者进入阿姆斯特丹一处微软数据中心建设工地。组织方还计划于 11 月 6—7 日在多个欧洲国家开展相关行动。",
+          "context": "这与本期的电网新闻可以放在一起看：AI 基础设施面对的讨论，已经从模型性能延伸到社区资源与建设方式。本文区分已报道的现场事件和组织方的后续行动计划，不把所有计划都算作已发生。",
+          "links": [
+            {
+              "label": "报道",
+              "url": "https://www.tomshardware.com/tech-industry/data-centers/protesters-storm-microsoft-ai-data-center-construction-site-amsterdam-reportedly-first-of-85-targeted-actions-across-europe"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-12",
+            "scope": "核对 Tom’s Hardware 作者、11 月 6 日发布日期和援引 Reuters 的事件段落。Reuters 原链接无法直接打开，因此只按已读取媒体报道作归属明确的简述，没有独立现场核实。"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "projects",
+      "title": "开源项目",
+      "intro": "本期从 [HelloGitHub 第 127 期](https://hellogithub.com/periodical/volume/127)（[官方仓库镜像](https://github.com/521xueweihan/HelloGitHub/blob/master/content/HelloGitHub127.md)）的 Skills、人工智能栏目发现候选，再核对原仓库并独立撰写介绍。以下均为“本期发现”，不宣称在新闻周首次发布；功能、维护信息与 star 为 11 月 12 日核查快照。",
+      "entries": [
+        {
+          "id": "diagram-design-discovery",
+          "title": "diagram-design：给编程助手加一套图表设计技能",
+          "date": "2026-11-12",
+          "date_label": "本期发现／资料快照",
+          "selection": "discovery",
+          "tags": [
+            "Skills",
+            "图表"
+          ],
+          "summary": "适合把技术方案整理成架构图、流程图或演示材料。这个 Skill 让编程助手生成独立的 HTML 与 SVG 文件，成果可以在浏览器里查看、继续修改，再按需要导出。它还提供多种图表参考与品牌样式流程，重点是把内容结构和视觉表达一起交给助手处理。",
+          "getting_started": "先浏览项目画廊，再按 README 的跨助手安装方式添加 Skill；用自己的一小段流程说明试做一张图，比从复杂大图开始更容易判断是否合用。",
+          "requirements": "需要能读取 Agent Skills 的宿主。图形布局、文本溢出和内容准确性仍要检查；本刊未实际运行生成或导出流程。",
+          "license": "MIT",
+          "github": {
+            "repository": "cathrynlavery/diagram-design",
+            "stars": 66627,
+            "checked_on": "2026-11-12",
+            "pushed_at": "2026-11-10T22:44:09Z",
+            "archived": false
           },
-          "evergreen": true
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/cathrynlavery/diagram-design"
+            },
+            {
+              "label": "画廊",
+              "url": "https://cathrynlavery.github.io/diagram-design/"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/cathrynlavery/diagram-design/blob/f2496acbde9f45ccb55c24d4f75210c8a1355df8/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-12",
+            "scope": "由 HelloGitHub 第 127 期发现候选，回原仓库读取 README、使用条件和许可字段，检查最新提交及最近四条 issue/PR 元数据。查询日 2026-11-12；默认分支提交 f2496acbde9f45ccb55c24d4f75210c8a1355df8。近期有讨论不等于修复已经合入；未安装、未运行，也未核验全部模型或数据下载。"
+          }
+        },
+        {
+          "id": "voicestudio-discovery",
+          "title": "VoiceStudio：把语音合成、转写和配音放进本地工作台",
+          "date": "2026-11-12",
+          "date_label": "本期发现／资料快照",
+          "selection": "discovery",
+          "tags": [
+            "语音",
+            "创作工具"
+          ],
+          "summary": "面向配音、有声书和语音素材处理的桌面工具，把音色生成、语音克隆、转写与视频配音等工作集中在一个界面中。项目集成多种引擎，可在模型管理器中选择，不需要自己为每个模型分别搭建一套操作界面。",
+          "getting_started": "从 Releases 选择对应系统的安装包，再按平台指南下载所需模型。第一次只试一段短文本，先确认所选引擎在自己的机器上能运行。",
+          "requirements": "Apple Silicon Mac 可本地运行支持的引擎；Intel Mac 的界面需连接另一台电脑上的后端。CPU、GPU 的可用性和速度依引擎及平台而异。软件为 AGPL-3.0，权重和音色另有许可；处理他人声音须取得授权。首次使用还需下载模型。",
+          "license": "AGPL-3.0",
+          "github": {
+            "repository": "debpalash/VoiceStudio",
+            "stars": 108663,
+            "checked_on": "2026-11-12",
+            "pushed_at": "2026-11-12T09:27:50Z",
+            "archived": false
+          },
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/debpalash/VoiceStudio"
+            },
+            {
+              "label": "下载与版本",
+              "url": "https://github.com/debpalash/VoiceStudio/releases"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/debpalash/VoiceStudio/blob/dbadfd1606fc481a628729f152846b243d88171d/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-12",
+            "scope": "由 HelloGitHub 第 127 期发现候选，回原仓库读取 README、使用条件和许可字段，检查最新提交及最近四条 issue/PR 元数据。查询日 2026-11-12；默认分支提交 dbadfd1606fc481a628729f152846b243d88171d。近期有讨论不等于修复已经合入；未安装、未运行，也未核验全部模型或数据下载。"
+          }
+        },
+        {
+          "id": "artemis-discovery",
+          "title": "ARTEMIS：让 AI 助手操作 Android 手机",
+          "date": "2026-11-12",
+          "date_label": "本期发现／资料快照",
+          "selection": "discovery",
+          "tags": [
+            "手机自动化",
+            "MCP"
+          ],
+          "summary": "给出自然语言任务，让 Agent 在真实 Android 手机或模拟器上完成界面操作，并留下截图、日志和回放。它提供 MCP 服务，也有命令行与 Python 接口，适合探索移动端测试、跨应用流程以及失败过程的追踪。",
+          "getting_started": "准备一台开启 USB 调试的测试设备或模拟器，按 Quick Start 完成连接。建议先做“打开设置并读取电量”这样的简单任务，再逐步增加流程长度。",
+          "requirements": "启动脚本会安装设备工具，并可能配置全局 MCP 和助手规则，运行前应阅读其提示。模型调用需要相应配置；不要把项目展示的基准成功率当成任意 App 上的成功率。",
+          "license": "Apache-2.0",
+          "github": {
+            "repository": "google/artemis",
+            "stars": 17296,
+            "checked_on": "2026-11-12",
+            "pushed_at": "2026-10-01T21:37:15Z",
+            "archived": false
+          },
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/google/artemis"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/google/artemis/blob/351ca8422f7b5b54e80a9c1ce03a222e02415b6b/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-12",
+            "scope": "由 HelloGitHub 第 127 期发现候选，回原仓库读取 README、使用条件和许可字段，检查最新提交及最近四条 issue/PR 元数据。查询日 2026-11-12；默认分支提交 351ca8422f7b5b54e80a9c1ce03a222e02415b6b。近期有讨论不等于修复已经合入；未安装、未运行，也未核验全部模型或数据下载。"
+          }
+        },
+        {
+          "id": "unimate-discovery",
+          "title": "UniMate：给不同骨骼的 3D 角色生成动作",
+          "date": "2026-11-12",
+          "date_label": "本期发现／资料快照",
+          "selection": "discovery",
+          "tags": [
+            "3D",
+            "动作生成"
+          ],
+          "summary": "输入带骨骼的 3D 资产与动作描述，UniMate 尝试用统一模型生成骨骼动画。它关注的不只是常见人形骨架，也包括结构不同的角色，适合动画原型、游戏角色和跨骨架动作研究。仓库提供代码、预览权重入口和自有资产的预处理说明。",
+          "getting_started": "先看交互演示，再按仓库流程试一个预置骨架；数据集完整路线约 88 GB，先按数据卡说明局部下载所需资产。处理自己的 GLB、glTF 或 FBX 时，还需检查关节标签和朝向。",
+          "requirements": "这是研究原型，作者明确指出不少骨骼和动作仍会失败。代码为 MIT，已发布权重标为 CC BY-NC 4.0；数据集和第三方资产还受各自许可约束，不能从代码开放推断权重或素材可商用。",
+          "license": "MIT",
+          "github": {
+            "repository": "Friedrich-M/UniMate",
+            "stars": 2687,
+            "checked_on": "2026-11-12",
+            "pushed_at": "2026-10-08T02:52:24Z",
+            "archived": false
+          },
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/Friedrich-M/UniMate"
+            },
+            {
+              "label": "项目与演示",
+              "url": "https://linzhanmou.com/unimate/"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/Friedrich-M/UniMate/blob/b78c7807df7cf4231d4e67f8d0ece29c5e11025b/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-12",
+            "scope": "由 HelloGitHub 第 127 期发现候选，回原仓库读取 README、使用条件和许可字段，检查最新提交及最近四条 issue/PR 元数据。查询日 2026-11-12；默认分支提交 b78c7807df7cf4231d4e67f8d0ece29c5e11025b。近期有讨论不等于修复已经合入；未安装、未运行，也未核验全部模型或数据下载。"
+          }
+        },
+        {
+          "id": "harness2-discovery",
+          "title": "Harness²：让 Agent 试着改进自己的执行系统",
+          "date": "2026-11-12",
+          "date_label": "本期发现／资料快照",
+          "selection": "discovery",
+          "tags": [
+            "Agent",
+            "开发工具"
+          ],
+          "summary": "模型权重不变，也可以尝试改进提示、工具、记忆和任务编排。Harness² 提供一套递归调整框架：提出修改、试跑比较，再组合有帮助的改动；既处理当前任务，也探索哪些经验值得带到后续任务中。适合研究 Agent 执行系统，而不只是切换更大的模型。",
+          "getting_started": "仓库提供不需要模型凭证的本地 demo，可先理解修改、执行和记录如何衔接，再考虑接入真实模型与基准。",
+          "requirements": "文档要求 Linux、Python 3.12 和 uv。接真实模型跑基准还需额外依赖与访问配置，并产生 API 成本；“能自动修改”不等于每种任务都能获得收益。",
+          "license": "Apache-2.0",
+          "github": {
+            "repository": "google-research/harness2",
+            "stars": 23508,
+            "checked_on": "2026-11-12",
+            "pushed_at": "2026-11-02T02:17:27Z",
+            "archived": false
+          },
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/google-research/harness2"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/google-research/harness2/blob/6868817518876de8fd170c6a8354daca273b6191/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-12",
+            "scope": "由 HelloGitHub 第 127 期发现候选，回原仓库读取 README、使用条件和许可字段，检查最新提交及最近四条 issue/PR 元数据。查询日 2026-11-12；默认分支提交 6868817518876de8fd170c6a8354daca273b6191。近期有讨论不等于修复已经合入；未安装、未运行，也未核验全部模型或数据下载。"
+          }
         }
       ]
     }
   ],
-  "exercise": "选一个你已经反复执行的 Agent 任务，固定模型、工具和预算，比较三种设置：不保留跨会话记忆、保存未经整理的笔记、保存可回查原始记录且经过整理的笔记。各组从相同历史快照独立开始，每个任务重复运行，避免组间泄漏经验。记录成功率、token（模型处理文本的计量单位）消耗、人工接手次数及错误记忆的再次引用次数；整理记忆的开销计入总成本。先做小样本探索。这是编辑建议，本刊未执行该实验，也不预设第三种一定更好。",
   "source_checks": [
     {
       "id": "anthropic-engineering",
       "status": "reviewed",
       "checked_on": "2026-11-12",
-      "note": "检查文章目录，阅读 11 月 6 日记忆文章的正文、案例和限制。"
+      "note": "读取 11 月 6 日记忆研究全文，范围限本期入选文章。"
     },
     {
       "id": "openai-research",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "检查研究入口；未逐篇穷尽本周全部发布，不据此声称没有更新。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "deepmind",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "检查官方博客入口，首期未逐篇核实所有发布。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "deepseek",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "确认官方组织入口，未逐仓库回溯本周提交。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "qwen",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "确认官方组织入口，未逐仓库回溯本周提交。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "hf-papers",
-      "status": "reviewed",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "从 2026-W45 周榜筛选候选，入选论文返回 arXiv 核查日期与内容。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "arxiv",
-      "status": "reviewed",
+      "status": "partial",
       "checked_on": "2026-11-12",
-      "note": "核查三篇入选论文的提交记录与正文对应部分；非全类别扫描。"
+      "note": "核对 PHA 早期预印本日期，并发现若干新预印本；本期未收录未核实会议状态的投稿。"
     },
     {
       "id": "openreview",
       "status": "partial",
       "checked_on": "2026-11-12",
-      "note": "确认入口，未确认入选预印本的正式录用或审稿状态。"
+      "note": "检索近期会议线索；不以投稿页面作为录用证明，本期未选入。"
     },
     {
       "id": "openhands",
-      "status": "reviewed",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "通过 GitHub API 核查本周版本 v1.37.0 的发布时间与完整 Release 文案。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "langgraph",
-      "status": "reviewed",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "通过 GitHub API 核查核心包 1.2.20，区分 SDK 和 CLI 发布。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "mini-swe-agent",
       "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "已加入后续追踪目录，本期未单独检查版本变化"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "vllm",
       "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "已加入后续追踪目录，本期未检查版本变化"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "metr",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "检查主页和研究目录，用作长期入口，未核查每篇研究。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "swebench",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "检查官方任务集合与评测视图说明，未回溯本周榜单变化。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "tau2",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "确认官方仓库，未回溯本周代码变化。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "simon-willison",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "检查近期日志入口，未将 11 月 9 日之后的材料纳入本期新闻。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "latent-space",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "检查出版物入口，未将当前周访谈误记为上一周发布。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "deepseek-harness",
-      "status": "reviewed",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态，并阅读覆盖周内入选 Release 的相关功能与限制。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "hermes-agent",
-      "status": "reviewed",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态，并阅读覆盖周内入选 Release 的相关功能与限制。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "dify",
-      "status": "reviewed",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态，并阅读覆盖周内入选 Release 的相关功能与限制。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "langchain",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态及最近 50 个 Release 的时间范围；本期未逐条展开。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "browser-use",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态及最近 50 个 Release 的时间范围；本期未逐条展开。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "ollama",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态及最近 50 个 Release 的时间范围；本期未逐条展开。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "firecrawl",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态及最近 50 个 Release 的时间范围；本期未逐条展开。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "n8n",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查仓库 star、活跃状态及最近 50 个 Release 的时间范围；本期未逐条展开。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "awesome-llm-apps",
-      "status": "partial",
+      "status": "not_checked",
       "checked_on": "2026-11-12",
-      "note": "核查合集 star、最近推送时间及内容定位，用于发现项目，未逐一核查子项目。"
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     },
     {
       "id": "awesome-ai-agents",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "nature",
       "status": "partial",
       "checked_on": "2026-11-12",
-      "note": "核查合集 star、最近推送时间及内容定位，用于发现项目，未逐一核查子项目。"
+      "note": "通过出版方索引、作者机构与预印本核查 PHA 正式发表及摘要／架构／评价段落；出版方直连受限。"
+    },
+    {
+      "id": "nature-human-behaviour",
+      "status": "partial",
+      "checked_on": "2026-11-12",
+      "note": "核对出版方与 PubMed 摘要及发表信息；未完整读取正文与附录。"
+    },
+    {
+      "id": "tmlr",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "jmlr",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "neurips",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "icml",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "iclr",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "acl",
+      "status": "partial",
+      "checked_on": "2026-11-12",
+      "note": "检索近期 Anthology 结果，区分正式会议与 Findings；本期未选入。"
+    },
+    {
+      "id": "google-research",
+      "status": "reviewed",
+      "checked_on": "2026-11-12",
+      "note": "核查 11 月博客目录及 11 月 5 日可穿戴传感器文章。"
+    },
+    {
+      "id": "meta-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "microsoft-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "nvidia-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "openai-news",
+      "status": "reviewed",
+      "checked_on": "2026-11-12",
+      "note": "读取 11 月 2 日 Grid Protectors 公告。"
+    },
+    {
+      "id": "anthropic-news",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "thinking-machines",
+      "status": "reviewed",
+      "checked_on": "2026-11-12",
+      "note": "核查新闻目录和 11 月 5 日 Inkling 2 Small 公告。"
+    },
+    {
+      "id": "nvidia-news",
+      "status": "partial",
+      "checked_on": "2026-11-12",
+      "note": "搜索发现城市 AI 新闻线索，原公告未能访问，未入刊。"
+    },
+    {
+      "id": "reuters",
+      "status": "partial",
+      "checked_on": "2026-11-12",
+      "note": "读取注明 Reuters 的韩国预算转载；欧洲数据中心事件原站访问失败，改读 Tom’s Hardware 归属报道。"
+    },
+    {
+      "id": "ap",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "techcrunch",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "the-verge",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "tomshardware",
+      "status": "reviewed",
+      "checked_on": "2026-11-12",
+      "note": "读取 11 月 6 日数据中心抗议报道的日期、作者与事件段落。"
+    },
+    {
+      "id": "jiqizhixin",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "tibo",
+      "status": "unavailable",
+      "checked_on": "2026-11-12",
+      "note": "确认账号为 @thsottiaux；X 原帖访问受限，本期未把无法核实的重置消息写成新闻。"
+    },
+    {
+      "id": "karpathy",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "sama",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
+    },
+    {
+      "id": "tibo-archive",
+      "status": "partial",
+      "checked_on": "2026-11-12",
+      "note": "检查社区文本归档与 tibo.cc 说明，索引时效不一致；未据此推定本周个人额度变化。"
+    },
+    {
+      "id": "hellogithub",
+      "status": "reviewed",
+      "checked_on": "2026-11-12",
+      "note": "指定网页访问失败，改由官方 GitHub 仓库读取第 127 期 Skills 与人工智能栏目；五个入选项目分别核对原仓库。"
+    },
+    {
+      "id": "hellogithub-standards",
+      "status": "reviewed",
+      "checked_on": "2026-11-12",
+      "note": "读取公开推荐审核标准中的文档、star、维护和 Issues 要求。"
+    },
+    {
+      "id": "github-trending",
+      "status": "not_checked",
+      "checked_on": "2026-11-12",
+      "note": "本轮未单独核查该入口；保留为后续选题来源，不据此判断有无更新。"
     }
   ],
   "corrections": [
     {
       "date": "2026-11-12",
       "text": "按高 star 项目优先的选题方向修订：新增 Dify、DeepSeek Harness、Hermes Agent 的覆盖周内更新，将项目栏目前置；移除 OpenHands 的常规界面修复条目，保留有状态恢复价值的 LangGraph 更新。补充带查询日期的 star 快照和高 star 来源；原版保留在 Git 历史。"
+    },
+    {
+      "date": "2026-11-12",
+      "text": "按新版编辑方案重做创刊号：改为论文与研究、新闻动态、开源项目三栏；取消项目 star 硬门槛，扩展全 AI 新闻与项目，替换原选题并分别标注发表日期、新闻周与发现快照。旧版本保留于 Git 历史，Release 文案同步更新，原标签不移动。"
     }
   ]
 }

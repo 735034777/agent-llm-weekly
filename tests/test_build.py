@@ -23,9 +23,51 @@ class EditorialSafeguards(unittest.TestCase):
     def check(self, issues=None):
         build.validate(issues or [self.issue], self.config, self.today)
 
-    def test_old_news_must_be_labelled_evergreen(self):
-        self.issue["sections"][0]["entries"][0]["date"] = "2026-10-01"
+    def test_old_news_cannot_be_reported_as_this_week(self):
+        self.issue["sections"][1]["entries"][0]["date"] = "2026-10-01"
         with self.assertRaisesRegex(ValueError, "新闻日期"):
+            self.check()
+
+    def test_recent_research_need_not_be_from_news_week(self):
+        self.issue["sections"][0]["entries"][0]["date"] = "2026-10-21"
+        self.check()
+
+    def test_research_cannot_leak_past_coverage_cutoff(self):
+        self.issue["sections"][0]["entries"][0]["date"] = "2026-11-09"
+        with self.assertRaisesRegex(ValueError, "研究日期"):
+            self.check()
+
+    def test_old_research_is_rejected(self):
+        self.issue["sections"][0]["entries"][0]["date"] = "2026-07-01"
+        with self.assertRaisesRegex(ValueError, "研究日期"):
+            self.check()
+
+    def test_venue_claim_requires_evidence(self):
+        self.issue["sections"][0]["entries"][1]["publication"].pop("evidence_url")
+        with self.assertRaisesRegex(ValueError, "发表状态证据"):
+            self.check()
+
+    def test_discovery_snapshot_is_not_a_news_event(self):
+        project = self.issue["sections"][2]["entries"][0]
+        self.assertEqual(project["date"], "2026-11-12")
+        self.check()
+        project["selection"] = "update"
+        with self.assertRaisesRegex(ValueError, "项目更新日期"):
+            self.check()
+
+    def test_small_projects_are_eligible(self):
+        self.issue["sections"][2]["entries"][0]["github"]["stars"] = 20
+        self.check()
+
+    def test_empty_section_requires_explanation(self):
+        section = self.issue["sections"][1]
+        section["entries"] = []
+        with self.assertRaisesRegex(ValueError, "空栏目"):
+            self.check()
+
+    def test_broken_highlight_is_rejected(self):
+        self.issue["highlights"][0]["entry_id"] = "does-not-exist"
+        with self.assertRaisesRegex(ValueError, "导读指向"):
             self.check()
 
     def test_future_publication_is_rejected(self):
@@ -81,7 +123,8 @@ class EditorialSafeguards(unittest.TestCase):
         notes = build.release_notes(self.issue, self.config)
         self.assertNotIn("](../", notes)
         self.assertIn("https://github.com/735034777/agent-llm-weekly/blob/main/README.md", notes)
-        self.assertIn("](#practice)", notes)
+        self.assertIn("](#section-research)", notes)
+        self.assertIn("/blob/main/evidence/001.md", notes)
 
 
 if __name__ == "__main__":

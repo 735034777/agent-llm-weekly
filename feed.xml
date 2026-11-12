@@ -1,16 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
   <channel>
-    <title>Agent &amp; LLM 前沿周报</title>
+    <title>AI 周刊</title>
     <link>https://github.com/735034777/agent-llm-weekly</link>
-    <description>每周读懂值得跟踪的技术变化：论文、Agent 工程、开源与评测。</description>
+    <description>论文与研究、新闻动态、开源项目。每周精选值得读、值得聊、值得试的 AI 进展。</description>
     <language>zh-CN</language>
     <atom:link href="https://raw.githubusercontent.com/735034777/agent-llm-weekly/main/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>第 001 期｜高 star Agent：从插件架构到工作流追踪</title>
+      <title>第 001 期｜记忆需要整理，AI 走进现实</title>
       <link>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-001</link>
       <guid>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-001</guid>
-      <description>修订后的创刊号以 4 个高 star 项目的实质更新开篇，再看记忆、训练与评测。共 8 条本周更新和 2 个长期参考，覆盖 2026-11-02—11-08。项目 star 是 11 月 12 日查询快照，不是覆盖周末的历史数值。</description>
+      <description>这一期从 Agent 怎样整理记忆谈起，再看模型发布、国家投入、用电与社区争议。开源部分挑了五个用途不同的项目，覆盖图表 Skill、语音、手机自动化、3D 动画和 Agent 工具。共 13 条精选，约 10—15 分钟；新闻回顾 11 月 2—8 日，研究采用近期正式发表或发布的材料，项目按 11 月 12 日的资料快照介绍。</description>
       <pubDate>Thu, 12 Nov 2026 09:00:00 +0800</pubDate>
     </item>
   </channel>

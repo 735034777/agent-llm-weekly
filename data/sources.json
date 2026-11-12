@@ -5,7 +5,7 @@
     {
       "id": "anthropic-engineering",
       "name": "Anthropic Engineering",
-      "category": "一手研究与工程",
+      "category": "论文与研究：实验室",
       "url": "https://www.anthropic.com/engineering",
       "method": "检查本周新文章；读取方法、案例和局限。",
       "priority": 1
@@ -13,7 +13,7 @@
     {
       "id": "openai-research",
       "name": "OpenAI Research",
-      "category": "一手研究与工程",
+      "category": "论文与研究：实验室",
       "url": "https://openai.com/research/",
       "method": "从研究索引进入技术报告、评测及系统卡。",
       "priority": 1
@@ -21,7 +21,7 @@
     {
       "id": "deepmind",
       "name": "Google DeepMind",
-      "category": "一手研究与工程",
+      "category": "论文与研究：实验室",
       "url": "https://deepmind.google/blog/",
       "method": "查本周模型、推理、多模态与 Agent 原始发布。",
       "priority": 1
@@ -29,7 +29,7 @@
     {
       "id": "deepseek",
       "name": "DeepSeek",
-      "category": "一手研究与工程",
+      "category": "论文与研究：实验室",
       "url": "https://github.com/deepseek-ai",
       "method": "查官方新仓库、论文与有实质内容的变更。",
       "priority": 1
@@ -37,7 +37,7 @@
     {
       "id": "qwen",
       "name": "Qwen",
-      "category": "一手研究与工程",
+      "category": "论文与研究：实验室",
       "url": "https://github.com/QwenLM",
       "method": "查模型与 Agent 项目，返回论文及模型卡核实。",
       "priority": 1
@@ -45,7 +45,7 @@
     {
       "id": "hf-papers",
       "name": "Hugging Face Daily Papers",
-      "category": "论文发现",
+      "category": "论文与研究：发现与录用核实",
       "url": "https://huggingface.co/papers",
       "method": "按对应 ISO 周浏览，热度只作线索；回原论文核查首次发布日期。",
       "priority": 1
@@ -53,7 +53,7 @@
     {
       "id": "arxiv",
       "name": "arXiv cs.AI / cs.CL / cs.LG",
-      "category": "论文发现",
+      "category": "论文与研究：发现与录用核实",
       "url": "https://arxiv.org/list/cs.AI/recent",
       "method": "检索 agentic RL、tool use、memory、reasoning、evaluation；必要时扩展 cs.CL/cs.LG。",
       "priority": 1
@@ -61,7 +61,7 @@
     {
       "id": "openreview",
       "name": "OpenReview",
-      "category": "论文发现",
+      "category": "论文与研究：发现与录用核实",
       "url": "https://openreview.net/",
       "method": "对入选论文检查公开审稿与作者回应，保留预印本和录用状态区别。",
       "priority": 2
@@ -69,33 +69,19 @@
     {
       "id": "openhands",
       "name": "OpenHands Releases",
-      "category": "开源工程",
+      "category": "补充项目观察",
       "url": "https://github.com/OpenHands/OpenHands/releases",
       "method": "按 published_at 筛选本周版本，读关联 PR，不跟踪所有依赖升级。",
-      "priority": 1,
-      "github": {
-        "repository": "OpenHands/OpenHands",
-        "stars": 93297,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T08:42:17Z",
-        "archived": false
-      },
+      "priority": 2,
       "focus": "编程 Agent"
     },
     {
       "id": "langgraph",
       "name": "LangGraph Releases",
-      "category": "开源工程",
+      "category": "补充项目观察",
       "url": "https://github.com/langchain-ai/langgraph/releases",
       "method": "区分核心包、SDK 和 CLI 版本，关注执行、持久化与人工介入变化。",
-      "priority": 1,
-      "github": {
-        "repository": "langchain-ai/langgraph",
-        "stars": 44838,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T01:43:56Z",
-        "archived": false
-      },
+      "priority": 2,
       "focus": "Agent 状态与编排"
     },
     {
@@ -103,23 +89,16 @@
       "name": "mini-SWE-agent",
       "category": "评测与可靠性",
       "url": "https://github.com/SWE-agent/mini-swe-agent",
-      "method": "作为最小执行系统与评测方法的研究参考，不进入高 star 项目推荐栏。",
+      "method": "作为最小执行系统、研究与评测工具的候选，按用途与文档质量选稿。",
       "priority": 2
     },
     {
       "id": "vllm",
       "name": "vLLM Releases",
-      "category": "开源工程",
+      "category": "补充项目观察",
       "url": "https://github.com/vllm-project/vllm/releases",
       "method": "关注影响 LLM/Agent 的推理、工具调用、成本与模型支持变化。",
-      "priority": 1,
-      "github": {
-        "repository": "vllm-project/vllm",
-        "stars": 96796,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T09:07:35Z",
-        "archived": false
-      },
+      "priority": 2,
       "focus": "模型推理服务"
     },
     {
@@ -149,7 +128,7 @@
     {
       "id": "simon-willison",
       "name": "Simon Willison",
-      "category": "实践与访谈",
+      "category": "新闻与人物：补充线索",
       "url": "https://simonwillison.net/",
       "method": "优先读作者亲测的技术记录，转述消息返回原出处。",
       "priority": 2
@@ -157,7 +136,7 @@
     {
       "id": "latent-space",
       "name": "Latent Space",
-      "category": "实践与访谈",
+      "category": "新闻与人物：补充线索",
       "url": "https://latent.space/",
       "method": "选技术作者访谈与工程讨论；新闻摘要仅作发现入口。",
       "priority": 2
@@ -165,170 +144,351 @@
     {
       "id": "deepseek-harness",
       "name": "DeepSeek Harness",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/deepseek-ai/deepseek-harness",
       "method": "插件架构、工具扩展、上下文与任务执行；区分开发预览和稳定版。",
-      "priority": 1,
-      "focus": "Agent 执行系统",
-      "github": {
-        "repository": "deepseek-ai/deepseek-harness",
-        "stars": 279371,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-11T11:32:04Z",
-        "archived": false
-      }
+      "priority": 2,
+      "focus": "Agent 执行系统"
     },
     {
       "id": "hermes-agent",
       "name": "Hermes Agent",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/NousResearch/hermes-agent",
       "method": "记忆与技能、跨端会话、子 Agent、持久运行与版本迁移。",
-      "priority": 1,
-      "focus": "通用 Agent",
-      "github": {
-        "repository": "NousResearch/hermes-agent",
-        "stars": 262829,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T09:18:46Z",
-        "archived": false
-      }
+      "priority": 2,
+      "focus": "通用 Agent"
     },
     {
       "id": "dify",
       "name": "Dify",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/langgenius/dify",
       "method": "Agent 工作流、RAG、可观察性、集成与部署变化。",
-      "priority": 1,
-      "focus": "Agent 应用平台",
-      "github": {
-        "repository": "langgenius/dify",
-        "stars": 161019,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T09:14:06Z",
-        "archived": false
-      }
+      "priority": 2,
+      "focus": "Agent 应用平台"
     },
     {
       "id": "langchain",
       "name": "LangChain",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/langchain-ai/langchain",
       "method": "核心包的工具调用、Agent 接口与集成，区分子包版本。",
-      "priority": 1,
-      "focus": "Agent 开发框架",
-      "github": {
-        "repository": "langchain-ai/langchain",
-        "stars": 149395,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T08:59:42Z",
-        "archived": false
-      }
+      "priority": 2,
+      "focus": "Agent 开发框架"
     },
     {
       "id": "browser-use",
       "name": "Browser Use",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/browser-use/browser-use",
       "method": "浏览器操作、任务可靠性、会话与部署；区分开源库和云服务。",
-      "priority": 1,
-      "focus": "浏览器 Agent",
-      "github": {
-        "repository": "browser-use/browser-use",
-        "stars": 120794,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T02:11:28Z",
-        "archived": false
-      }
+      "priority": 2,
+      "focus": "浏览器 Agent"
     },
     {
       "id": "ollama",
       "name": "Ollama",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/ollama/ollama",
       "method": "本地模型支持、推理接口、工具调用及性能变化。",
-      "priority": 1,
-      "focus": "本地模型运行",
-      "github": {
-        "repository": "ollama/ollama",
-        "stars": 186742,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T03:21:12Z",
-        "archived": false
-      }
+      "priority": 2,
+      "focus": "本地模型运行"
     },
     {
       "id": "firecrawl",
       "name": "Firecrawl",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/firecrawl/firecrawl",
       "method": "抓取、搜索、结构化抽取和 Agent 数据接口。",
-      "priority": 1,
-      "focus": "Agent 数据获取",
-      "github": {
-        "repository": "firecrawl/firecrawl",
-        "stars": 201066,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T09:10:56Z",
-        "archived": false
-      }
+      "priority": 2,
+      "focus": "Agent 数据获取"
     },
     {
       "id": "n8n",
       "name": "n8n",
-      "category": "高 star 项目",
+      "category": "补充项目观察",
       "url": "https://github.com/n8n-io/n8n",
-      "method": "只选与 Agent、LLM、工具集成有关的实质更新；保留 fair-code 许可区别。",
-      "priority": 1,
-      "focus": "工作流自动化",
-      "github": {
-        "repository": "n8n-io/n8n",
-        "stars": 210256,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-12T09:18:16Z",
-        "archived": false
-      }
+      "method": "关注全 AI 相关工作流与自动化；准确区分 fair-code、自定义许可和开源。",
+      "priority": 2,
+      "focus": "工作流自动化"
     },
     {
       "id": "awesome-llm-apps",
       "name": "Awesome LLM Apps",
-      "category": "项目发现合集",
+      "category": "补充项目观察",
       "url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
       "method": "发现 Agent、RAG 和技能案例；返回独立原始项目核实，不能继承合集 star。",
       "priority": 2,
-      "focus": "应用案例合集",
-      "github": {
-        "repository": "Shubhamsaboo/awesome-llm-apps",
-        "stars": 144470,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-11-11T07:04:33Z",
-        "archived": false
-      }
+      "focus": "应用案例合集"
     },
     {
       "id": "awesome-ai-agents",
       "name": "Awesome AI Agents",
-      "category": "项目发现合集",
+      "category": "补充项目观察",
       "url": "https://github.com/e2b-dev/awesome-ai-agents",
       "method": "补充发现候选；该合集近期更新较少，每次核实子项目自身的活跃度与 star。",
       "priority": 2,
-      "focus": "Agent 导航合集",
-      "github": {
-        "repository": "e2b-dev/awesome-ai-agents",
-        "stars": 30908,
-        "checked_on": "2026-11-12",
-        "pushed_at": "2026-08-21T18:52:45Z",
-        "archived": false
-      }
+      "focus": "Agent 导航合集"
+    },
+    {
+      "id": "nature",
+      "name": "Nature / Nature Machine Intelligence",
+      "category": "论文与研究：期刊",
+      "url": "https://www.nature.com/natmachintell/",
+      "method": "结合 Nature 系列相关论文；核对在线发表日、摘要与方法，区分期刊版和早期预印本。",
+      "priority": 1
+    },
+    {
+      "id": "nature-human-behaviour",
+      "name": "Nature Human Behaviour",
+      "category": "论文与研究：期刊",
+      "url": "https://www.nature.com/nathumbehav/",
+      "method": "关注 AI 行为、评测与人机互动的相关研究。",
+      "priority": 2
+    },
+    {
+      "id": "tmlr",
+      "name": "TMLR",
+      "category": "论文与研究：期刊",
+      "url": "https://jmlr.org/tmlr/",
+      "method": "核对正式接收状态、版本与公开评审。",
+      "priority": 1
+    },
+    {
+      "id": "jmlr",
+      "name": "JMLR",
+      "category": "论文与研究：期刊",
+      "url": "https://www.jmlr.org/papers/",
+      "method": "检查近期正式论文，按 LLM／Agent 相关性筛选。",
+      "priority": 2
+    },
+    {
+      "id": "neurips",
+      "name": "NeurIPS Proceedings",
+      "category": "论文与研究：会议",
+      "url": "https://proceedings.neurips.cc/",
+      "method": "以正式论文集或公开录用决定为准，不能凭投稿页写成已录用。",
+      "priority": 1
+    },
+    {
+      "id": "icml",
+      "name": "ICML / PMLR",
+      "category": "论文与研究：会议",
+      "url": "https://proceedings.mlr.press/",
+      "method": "从 ICML 正式卷检索近期相关成果，区分会议日期与首次公开日期。",
+      "priority": 1
+    },
+    {
+      "id": "iclr",
+      "name": "ICLR / OpenReview",
+      "category": "论文与研究：会议",
+      "url": "https://openreview.net/group?id=ICLR.cc",
+      "method": "核对会议、年份与 decision，不能把 active submission 当成接收。",
+      "priority": 1
+    },
+    {
+      "id": "acl",
+      "name": "ACL / EMNLP Anthology",
+      "category": "论文与研究：会议",
+      "url": "https://aclanthology.org/",
+      "method": "核对 venue、年份和主会／Findings／Workshop 类型；其他 NLP 会议作补充。",
+      "priority": 1
+    },
+    {
+      "id": "google-research",
+      "name": "Google Research",
+      "category": "论文与研究：实验室",
+      "url": "https://research.google/blog/",
+      "method": "检查研究博客与论文；研究方法进研究栏，产品与应用事件可进新闻，避免重复。",
+      "priority": 1
+    },
+    {
+      "id": "meta-research",
+      "name": "Meta AI Research",
+      "category": "论文与研究：实验室",
+      "url": "https://ai.meta.com/research/",
+      "method": "追溯论文、模型卡和技术报告。",
+      "priority": 2
+    },
+    {
+      "id": "microsoft-research",
+      "name": "Microsoft Research",
+      "category": "论文与研究：实验室",
+      "url": "https://www.microsoft.com/en-us/research/blog/",
+      "method": "从作者介绍回到论文与正式发表信息。",
+      "priority": 2
+    },
+    {
+      "id": "nvidia-research",
+      "name": "NVIDIA Research",
+      "category": "论文与研究：实验室",
+      "url": "https://research.nvidia.com/",
+      "method": "涵盖机器人、视觉、多模态与训练推理，按论文范围选稿。",
+      "priority": 2
+    },
+    {
+      "id": "openai-news",
+      "name": "OpenAI News",
+      "category": "新闻：官方发布",
+      "url": "https://openai.com/news/",
+      "method": "检查模型、产品、定价、额度、公司及算力公告；标明已上线与计划。",
+      "priority": 1
+    },
+    {
+      "id": "anthropic-news",
+      "name": "Anthropic News",
+      "category": "新闻：官方发布",
+      "url": "https://www.anthropic.com/news",
+      "method": "检查产品、公司与政策动态，回直接公告。",
+      "priority": 1
+    },
+    {
+      "id": "thinking-machines",
+      "name": "Thinking Machines Lab",
+      "category": "新闻：官方发布",
+      "url": "https://thinkingmachines.ai/news/",
+      "method": "核对产品上线、权重开放状态和技术细节。",
+      "priority": 2
+    },
+    {
+      "id": "nvidia-news",
+      "name": "NVIDIA Newsroom",
+      "category": "新闻：官方发布",
+      "url": "https://nvidianews.nvidia.com/",
+      "method": "关注芯片、机器人、产业合作和黄仁勋公开活动。",
+      "priority": 1
+    },
+    {
+      "id": "reuters",
+      "name": "Reuters",
+      "category": "新闻：媒体报道",
+      "url": "https://www.reuters.com/technology/",
+      "method": "AI 产业、政治、经济与社会；付费墙或访问受限如实记录，可核对有署名转载。",
+      "priority": 1
+    },
+    {
+      "id": "ap",
+      "name": "Associated Press",
+      "category": "新闻：媒体报道",
+      "url": "https://apnews.com/hub/artificial-intelligence",
+      "method": "补充社会与公共事件，重要争议交叉核查。",
+      "priority": 2
+    },
+    {
+      "id": "techcrunch",
+      "name": "TechCrunch AI",
+      "category": "新闻：媒体报道",
+      "url": "https://techcrunch.com/category/artificial-intelligence/",
+      "method": "产品、创业与融资动态；传闻标清状态。",
+      "priority": 2
+    },
+    {
+      "id": "the-verge",
+      "name": "The Verge AI",
+      "category": "新闻：媒体报道",
+      "url": "https://www.theverge.com/ai-artificial-intelligence",
+      "method": "消费产品、行业人物与社会影响。",
+      "priority": 2
+    },
+    {
+      "id": "tomshardware",
+      "name": "Tom’s Hardware",
+      "category": "新闻：媒体报道",
+      "url": "https://www.tomshardware.com/",
+      "method": "硬件、数据中心与行业报道；转引要标注原报道及实际可读范围。",
+      "priority": 2
+    },
+    {
+      "id": "jiqizhixin",
+      "name": "机器之心",
+      "category": "新闻与人物：补充线索",
+      "url": "https://www.jiqizhixin.com/",
+      "method": "中文研究和行业线索，技术结论回论文与作者来源。",
+      "priority": 2
+    },
+    {
+      "id": "tibo",
+      "name": "Tibo / Thibault Sottiaux · @thsottiaux",
+      "category": "新闻与人物：公开账号",
+      "url": "https://x.com/thsottiaux",
+      "method": "固定关注 Codex 产品、额度与重置；保留原帖、UTC／北京时间和适用对象。无法确认不写成已到账。",
+      "priority": 1
+    },
+    {
+      "id": "karpathy",
+      "name": "Andrej Karpathy",
+      "category": "新闻与人物：公开账号",
+      "url": "https://x.com/karpathy",
+      "method": "公开实验、观点和趣事可选；观点与事实分别归属，回原帖核实。",
+      "priority": 2
+    },
+    {
+      "id": "sama",
+      "name": "Sam Altman",
+      "category": "新闻与人物：公开账号",
+      "url": "https://x.com/sama",
+      "method": "公开产品与公司动态，重要消息与官方公告交叉核查。",
+      "priority": 2
+    },
+    {
+      "id": "tibo-archive",
+      "name": "Tibo 社区归档",
+      "category": "新闻与人物：补充线索",
+      "url": "https://codex-reset.com/tibo/x/",
+      "method": "仅作找原帖线索，可能延迟；社区预测不作官方公告，不据此推断个人额度。",
+      "priority": 2
+    },
+    {
+      "id": "hellogithub",
+      "name": "HelloGitHub · Skills 与人工智能",
+      "category": "开源项目：发现",
+      "url": "https://hellogithub.com/periodical/volume/127",
+      "method": "从最新期刊及 Skills／人工智能分类发现候选；回仓库核对，不照搬文案、图片或榜单。",
+      "priority": 1
+    },
+    {
+      "id": "hellogithub-standards",
+      "name": "HelloGitHub 推荐审核标准",
+      "category": "开源项目：发现",
+      "url": "https://github.com/521xueweihan/HelloGitHub/issues/271",
+      "method": "参考文档、特色、上手入口、许可、维护与讨论；star 作参考，不设入刊硬门槛。",
+      "priority": 2
+    },
+    {
+      "id": "github-trending",
+      "name": "GitHub Trending",
+      "category": "开源项目：发现",
+      "url": "https://github.com/trending",
+      "method": "补充全 AI 项目发现，避免固定重复大框架；热度不能替代用途与维护核查。",
+      "priority": 2
     }
   ],
-  "project_selection": {
-    "minimum_stars": 30000,
-    "preferred_stars": 50000,
-    "preferred_share": 0.7,
-    "news_projects_target": "4–6",
-    "research_items_target": "1–2",
-    "star_counts_are": "查询日快照，不代表所覆盖周末的历史 star，也不代表技术质量"
+  "editorial": {
+    "sections": [
+      "research",
+      "news",
+      "projects"
+    ],
+    "research_focus": [
+      "LLM",
+      "Agent",
+      "推理",
+      "训练",
+      "记忆",
+      "多模态",
+      "评测"
+    ],
+    "news_scope": "全人工智能，含产业、产品、社会、政策与公开人物动态",
+    "projects_scope": "全人工智能及 Skills，重用途、特色、文档、可用性与维护",
+    "targets": {
+      "research": "3–4",
+      "news": "5–7",
+      "projects": "4–5",
+      "total": "12–16；宁少勿凑"
+    },
+    "star_policy": "仅作注明查询日期的参考，无最低值与比例要求",
+    "research_window_days": 30,
+    "research_extended_window_days": 60
   }
 }

@@ -16,6 +16,8 @@ from zoneinfo import ZoneInfo
 ROOT = Path(__file__).resolve().parents[1]
 TZ = ZoneInfo("Asia/Shanghai")
 STATUSES = {"reviewed", "partial", "unavailable", "not_checked"}
+KINDS = {"research": "论文与研究", "news": "新闻动态", "projects": "开源项目"}
+PUBLICATIONS = {"journal": "期刊论文", "conference": "会议论文", "preprint": "预印本", "blog": "研究博客", "report": "技术报告"}
 
 
 def require(condition, message):
@@ -64,6 +66,7 @@ def validate(issues, config, today=None):
         if previous_end:
             require(start == previous_end + timedelta(days=1), f"{issue_id}: 覆盖周有重复或缺失")
         previous_end = end
+        require(issue.get("schema_version") == 2, f"{issue_id}: 需要 schema_version 2")
         require(issue["title"].strip() and issue["summary"].strip(), f"{issue_id}: 缺少标题或导读")
         checks = issue["source_checks"]
         checked_ids = {c["id"] for c in checks}
@@ -75,36 +78,56 @@ def validate(issues, config, today=None):
             require(check["status"] in STATUSES and check["note"].strip(), "缺少来源状态说明")
             require(iso(check["checked_on"]) <= today, "来源核查日期不能在未来")
         entry_ids = set()
+        require([s.get("kind") for s in issue["sections"]] == list(KINDS), "栏目必须依次为研究、新闻、项目")
         for section in issue["sections"]:
-            require(section["title"].strip() and section["entries"], "不保留空栏目")
+            kind = section["kind"]
+            require(section["title"] == KINDS[kind], "栏目名称不匹配")
+            require(section["entries"] or section.get("empty_note", "").strip(), "空栏目须注明证据缺口")
             for entry in section["entries"]:
                 key = entry["id"]
                 require(key not in entry_ids, f"{issue_id}: 条目 ID 重复：{key}")
                 entry_ids.add(key)
-                for field in ("title", "summary", "why", "limits"):
-                    require(bool(entry[field].strip()), f"{key}: 缺少 {field}")
-                require(type(entry["evergreen"]) is bool, f"{key}: evergreen 必须为布尔值")
-                event_date = iso(entry["date"]) if entry["date"] else None
-                require(event_date is None or event_date <= today, f"{key}: 事件日期不能在未来")
-                if not entry["evergreen"]:
-                    require(event_date is not None and start <= event_date <= end,
-                            f"{key}: 新闻日期不在覆盖周内；旧文应标记 evergreen")
+                for field in ("title", "summary", "date_label"):
+                    require(bool(entry.get(field, "").strip()), f"{key}: 缺少 {field}")
+                event_date = iso(entry["date"])
+                require(event_date <= today, f"{key}: 事件日期不能在未来")
+                if kind == "news":
+                    require(start <= event_date <= end, f"{key}: 新闻日期不在覆盖周内")
                     require(key not in news_ids, f"重复报道同一新闻事件：{key}")
                     news_ids.add(key)
+                    require(entry.get("date_basis", "").strip(), f"{key}: 缺少新闻日期依据")
+                elif kind == "research":
+                    require(end - timedelta(days=60) <= event_date <= end, f"{key}: 研究日期超出近 60 天或晚于覆盖周")
+                    pub = entry["publication"]
+                    require(pub["type"] in PUBLICATIONS and pub["venue"].strip(), f"{key}: 研究发表状态错误")
+                    if pub["type"] in {"journal", "conference"}:
+                        require(pub.get("status") in {"published", "accepted"}, f"{key}: 缺少正式发表或录用状态")
+                        require(public_url(pub.get("evidence_url", "")), f"{key}: 缺少发表状态证据")
+                    require(entry.get("insight", "").strip() and entry.get("limits", "").strip(), f"{key}: 研究须包含阅读判断与证据边界")
+                else:
+                    require(entry.get("selection") in {"discovery", "update"}, f"{key}: 项目选题类型错误")
+                    if entry["selection"] == "update":
+                        require(start <= event_date <= end, f"{key}: 项目更新日期不在覆盖周内")
+                    else:
+                        require(event_date <= published, f"{key}: 项目发现日期晚于本期发布")
+                    require(entry.get("getting_started", "").strip() and entry.get("license", "").strip(), f"{key}: 项目缺少上手入口或许可")
+                    require("github" in entry, f"{key}: 项目缺少 GitHub 快照")
                 require(bool(entry["links"]), f"{key}: 缺少原始来源")
                 for link in entry["links"]:
                     require(link["label"].strip() and public_url(link["url"]), f"{key}: 来源链接错误")
                 verification = entry["verification"]
                 if "github" in entry:
                     validate_github(entry["github"], today)
-                require(verification["level"] in {"source-reviewed", "reproduced"}, f"{key}: 核查等级错误")
+                require(verification["level"] in {"source-reviewed", "source-partial", "reproduced"}, f"{key}: 核查等级错误")
+                require(verification.get("scope", "").strip(), f"{key}: 缺少实际核查范围")
                 checked = iso(verification["checked_on"])
                 require(checked <= today and (event_date is None or checked >= event_date), f"{key}: 核查日期错误")
                 if verification["level"] == "reproduced":
                     require(bool(verification.get("reproduction")), f"{key}: 缺少复现条件和结果记录")
-        require(issue["lead_id"] in entry_ids if entry_ids else issue["lead_id"] is None,
-                f"{issue_id}: 导读指向不存在的条目")
-        require(issue["exercise"].strip(), f"{issue_id}: 缺少实践建议")
+        highlights = issue["highlights"]
+        require(len(highlights) == min(3, len(entry_ids)), f"{issue_id}: 导读应有三条")
+        require(len({h["entry_id"] for h in highlights}) == len(highlights), "导读重复")
+        require(all(h["entry_id"] in entry_ids and h["text"].strip() for h in highlights), f"{issue_id}: 导读指向不存在的条目")
         for correction in issue["corrections"]:
             require(published <= iso(correction["date"]) <= today and correction["text"].strip(),
                     f"{issue_id}: 更正记录错误")
@@ -126,92 +149,119 @@ def entries(issue):
     return [entry for section in issue["sections"] for entry in section["entries"]]
 
 
+def entry_label(entry, kind):
+    if kind == "research":
+        pub = entry["publication"]
+        status = {"published": "已发表", "accepted": "已录用"}.get(pub.get("status"), "")
+        return " · ".join(filter(None, [PUBLICATIONS[pub["type"]], pub["venue"], status, entry["date_label"] + " " + entry["date"]]))
+    return entry["date_label"] + " " + entry["date"]
+
+
 def render_issue(issue, source_names=None):
-    source_names = source_names or {}
     issue_id = issue["id"]
-    lines = [f"# Agent & LLM 前沿周报 · 第 {issue_id} 期", "", f"## {issue['title']}", "",
-             f"> 覆盖：{issue['start']} — {issue['end']}｜发布：{issue['published_on']}｜排期：北京时间", "",
-             "[返回首页](../README.md) · [往期归档](../ARCHIVE.md) · [信息源](../SOURCES.md)", "", issue["summary"], ""]
-    if issue["lead_id"]:
-        lead = next(e for e in entries(issue) if e["id"] == issue["lead_id"])
-        lines += [f"**本周值得先看：[{lead['title']}]({lead['links'][0]['url']})**。{lead['why']}", ""]
-    lines += ["## 本期目录", ""]
-    for index, section in enumerate(issue["sections"], 1):
-        lines.append(f"- [{section['title']}](#section-{index})")
-    lines += ["- [本期动手](#practice)", "- [核查范围](#coverage)", ""]
+    lines = [f"# AI 周刊 · 第 {issue_id} 期", "", f"## {issue['title']}", "",
+             f"> 新闻周：{issue['start']} — {issue['end']}｜发布：{issue['published_on']}｜排期：北京时间", "",
+             "[首页](../README.md) · [往期](../ARCHIVE.md) · [信息源](../SOURCES.md)", "", issue["summary"], "",
+             "**先看这三条**", ""]
+    lines += [f"- [{h['text']}](#item-{h['entry_id']})" for h in issue["highlights"]]
+    lines += ["", " · ".join(f"[{s['title']}](#section-{s['kind']})" for s in issue["sections"]), ""]
     count = 0
-    for index, section in enumerate(issue["sections"], 1):
-        lines += [f'<a id="section-{index}"></a>', "", f"## {section['title']}", ""]
+    for section in issue["sections"]:
+        kind = section["kind"]
+        lines += [f'<a id="section-{kind}"></a>', "", f"## {section['title']}", ""]
+        if section.get("intro"):
+            lines += [section["intro"], ""]
+        if not section["entries"]:
+            lines += [section["empty_note"], ""]
         for entry in section["entries"]:
             count += 1
-            label = "长期参考 · 非本周新闻" if entry["evergreen"] else entry.get("date_label", "事件日期") + " " + entry["date"]
-            if entry["evergreen"] and entry["date"]:
-                label += f" · 原文 {entry['date']}"
-            lines += [f"### {count}. {entry['title']}", "", f"`{label}` · " + " / ".join(entry["tags"]), "",
-                      *([f"⭐ **{entry['github']['stars']:,}** · 查询日期 {entry['github']['checked_on']} · [{entry['github']['repository']}](https://github.com/{entry['github']['repository']})", ""] if "github" in entry else []),
-                      entry["summary"], "", f"**为什么值得看：** {entry['why']}", "",
-                      f"**适用范围与限制：** {entry['limits']}", "",
-                      " · ".join(f"[{link['label']}]({link['url']})" for link in entry["links"]), ""]
-    lines += ['<a id="practice"></a>', "", "## 本期动手", "", issue["exercise"], "",
-              '<a id="coverage"></a>', "", "## 核查范围", ""]
-    counts = Counter(c["status"] for c in issue["source_checks"])
-    lines += [f"配置 {len(issue['source_checks'])} 个信息源；完成约定范围检查 {counts['reviewed']} 个、部分检查 {counts['partial']} 个、访问失败 {counts['unavailable']} 个、未检查 {counts['not_checked']} 个。精选不代表全网穷尽。", "",
-              "“完成检查”指完成下表注明的范围，不代表读完该网站全部内容；“部分检查”表示只检查入口、目录或部分材料。", "",
-              f"条目证据与来源检查说明见 [本期数据](../data/issues/{issue_id}.json)。除条目另有说明外，均为原始材料核查，未独立复现实验或执行软件升级。", ""]
-    gaps = [c for c in issue["source_checks"] if c["status"] in {"unavailable", "not_checked"}]
-    if gaps:
-        lines += ["本期缺口：" + "；".join(f"{c['id']}：{c['note']}" for c in gaps) + "。", ""]
-    status_names = {"reviewed": "完成范围检查", "partial": "部分检查", "unavailable": "访问失败", "not_checked": "未检查"}
-    lines += ["<details>", "<summary>展开本期来源检查说明</summary>", "", "| 来源 | 状态 | 范围 |", "| --- | --- | --- |"]
-    lines += [f"| {source_names.get(c['id'], c['id'])} | {status_names[c['status']]} | {c['note']} |" for c in issue["source_checks"]]
-    lines += ["", "</details>", ""]
-    lines += ["## 更正记录", ""]
+            lines += [f'<a id="item-{entry["id"]}"></a>', "", f"### {count}. {entry['title']}", "",
+                      f"`{entry_label(entry, kind)}` · " + " / ".join(entry["tags"]), ""]
+            if kind == "projects":
+                g = entry["github"]
+                lines += [f"⭐ {g['stars']:,}（{g['checked_on']} 快照） · {entry['license']}", ""]
+            lines += [entry["summary"], ""]
+            if kind == "research":
+                lines += [entry["insight"], "", entry["limits"], ""]
+            elif kind == "projects":
+                lines += ["**上手：** " + entry["getting_started"], ""]
+                if entry.get("requirements"):
+                    lines += [entry["requirements"], ""]
+            elif entry.get("context"):
+                lines += [entry["context"], ""]
+            lines += [" · ".join(f"[{link['label']}]({link['url']})" for link in entry["links"]), ""]
+    lines += ["---", "",
+              f"本期核查与复现情况按条记录；未注明复现的条目均未独立复现实验或安装测试。详细核查范围与访问缺口见 [核查记录](../evidence/{issue_id}.md)；结构化内容见 [本期数据](../data/issues/{issue_id}.json)。", "",
+              "<details>", "<summary>版本与更正</summary>", ""]
     lines += [f"- {c['date']}：{c['text']}" for c in issue["corrections"]] or ["暂无更正。"]
-    lines += ["", "---", "", "本刊由 AI 辅助编写，技术结论请结合原始证据与自己的任务判断。", ""]
+    lines += ["", "</details>", "", "本刊由 AI 辅助编写，观点与摘要请结合原始来源阅读。", ""]
     return "\n".join(lines)
+
+
+def render_evidence(issue, source_names):
+    counts = Counter(c["status"] for c in issue["source_checks"])
+    lines = [f"# 第 {issue['id']} 期核查记录", "", f"[返回正文](../content/{issue['id']}.md)", "",
+             f"来源目录 {len(issue['source_checks'])} 个：完成注明范围检查 {counts['reviewed']} 个，部分检查 {counts['partial']} 个，访问失败 {counts['unavailable']} 个，未检查 {counts['not_checked']} 个。目录是候选入口，不能据此声称穷尽全网。", "",
+             "## 条目证据", ""]
+    for section in issue["sections"]:
+        for e in section["entries"]:
+            v = e["verification"]
+            lines += [f"### {e['title']}", "", f"{v['checked_on']} · `{v['level']}`", "", v["scope"], ""]
+            if e.get("date_basis"):
+                lines += ["日期依据：" + e["date_basis"], ""]
+            if e.get("github"):
+                g = e["github"]
+                lines += [f"仓库：{g['repository']}；star {g['stars']:,}；查询日 {g['checked_on']}。", ""]
+            if v.get("reproduction"):
+                lines += ["复现记录：" + v["reproduction"], ""]
+            lines += [" · ".join(f"[{l['label']}]({l['url']})" for l in e["links"]), ""]
+    names = {"reviewed": "完成注明范围", "partial": "部分检查", "unavailable": "访问失败", "not_checked": "未检查"}
+    lines += ["## 来源覆盖", "", "| 来源 | 状态 | 日期 | 实际范围 |", "| --- | --- | --- | --- |"]
+    lines += [f"| {source_names.get(c['id'], c['id'])} | {names[c['status']]} | {c['checked_on']} | {c['note'].replace('|', '／')} |" for c in issue["source_checks"]]
+    return "\n".join(lines) + "\n"
 
 
 def build_outputs(issues, config, readme):
     repo_url = "https://github.com/" + config["repository"]
     source_names = {s["id"]: s["name"] for s in config["sources"]}
     outputs = {f"content/{i['id']}.md": render_issue(i, source_names) for i in issues}
+    outputs.update({f"evidence/{i['id']}.md": render_evidence(i, source_names) for i in issues})
     latest = issues[-1]
-    news_count = sum(not e["evergreen"] for e in entries(latest))
+    units = {"research": ("研究", "篇"), "news": ("新闻", "条"), "projects": ("项目", "个")}
+    counts = " · ".join(f"{units[s['kind']][0]} {len(s['entries'])} {units[s['kind']][1]}" for s in latest["sections"])
     latest_block = (f"<!-- LATEST:START -->\n"
                     f"### [第 {latest['id']} 期｜{latest['title']}](content/{latest['id']}.md)\n\n"
-                    f"覆盖 {latest['start']} — {latest['end']} · 发布 {latest['published_on']} · {news_count} 条本周更新\n\n"
-                    f"{latest['summary']}\n\n<!-- LATEST:END -->")
+                    f"新闻周 {latest['start']} — {latest['end']} · 发布 {latest['published_on']}\n\n"
+                    f"{counts}\n\n{latest['summary']}\n\n<!-- LATEST:END -->")
     pattern = r"<!-- LATEST:START -->.*?<!-- LATEST:END -->"
     require(len(re.findall(pattern, readme, re.S)) == 1, "README 最新一期标记缺失或重复")
     outputs["README.md"] = re.sub(pattern, lambda _: latest_block, readme, flags=re.S)
-    archive = ["# 往期归档", "", "[返回首页](README.md)", "", "| 期号 | 覆盖时间 | 主题 | 发布日期 |", "| --- | --- | --- | --- |"]
+    archive = ["# 往期归档", "", "[返回首页](README.md)", "", "| 期号 | 新闻周 | 主题 | 发布日期 |", "| --- | --- | --- | --- |"]
     archive += [f"| [{i['id']}](content/{i['id']}.md) | {i['start']} — {i['end']} | {i['title']} | {i['published_on']} |" for i in reversed(issues)]
     outputs["ARCHIVE.md"] = "\n".join(archive) + "\n"
-    source_lines = ["# 信息源目录", "", "[返回首页](README.md) · [高 star 项目池](PROJECTS.md) · [编辑准则](docs/EDITORIAL.md)", "",
-                    "下面是计划追踪的入口。每期实际检查情况记录在该期 JSON 的 source_checks 中；列入目录不代表每期都能完整访问。优先级 1 每周优先检查，优先级 2 用于补充。", ""]
+    source_lines = ["# 信息源目录", "", "[首页](README.md) · [项目索引](PROJECTS.md) · [编辑准则](docs/EDITORIAL.md)", "",
+                    "优先级 1 为常规选题入口，2 为补充线索。每期按实际访问记录核查范围；列入目录不代表每周全部读完。聚合、社区和人物账号提供线索，入刊事实须追溯原始材料或可靠报道。", ""]
     for category in dict.fromkeys(s["category"] for s in config["sources"]):
         source_lines += [f"## {category}", "", "| 来源 | 优先级 | 检查方式 |", "| --- | --- | --- |"]
         source_lines += [f"| [{s['name']}]({s['url']}) | {s['priority']} | {s['method']} |" for s in config["sources"] if s["category"] == category]
         source_lines.append("")
     outputs["SOURCES.md"] = "\n".join(source_lines)
-    project_lines = ["# 高 star 项目追踪池", "", "[返回首页](README.md) · [信息源目录](SOURCES.md)", "",
-                     "项目栏目优先选择 50,000 star 以上的活跃项目，通常不低于 30,000；先有实质技术变化，再决定是否入刊。论文和评测不受 star 门槛约束。", "",
-                     "以下数值来自 GitHub REST API 的查询日快照，不是历史周末值。最近推送只能说明仓库有活动，不能独立证明维护质量。合集的 star 不属于其收录的子项目。", ""]
-    tracked = [s for s in config["sources"] if "github" in s]
-    for collections in (False, True):
-        project_lines += ["## 项目发现合集" if collections else "## 重点项目", "", "| 项目 | Star | 查询日期 | 关注方向 | 最近推送（UTC） |", "| --- | ---: | --- | --- | --- |"]
-        for source in sorted(tracked, key=lambda s: s["github"]["stars"], reverse=True):
-            if (source["category"] == "项目发现合集") != collections:
+    project_lines = ["# 开源项目索引", "", "[首页](README.md) · [信息源](SOURCES.md)", "",
+                     "按入刊顺序收录，方便回看。以用途、特色、文档、可用性和维护情况选稿；star 是查询日的关注度快照，不设硬门槛，也不是能力排名。发现条目不代表项目本周首次发布。", "",
+                     "| 项目 | 方向 | Star 快照 | 查询日期 | 许可 | 入选期刊 |", "| --- | --- | ---: | --- | --- | --- |"]
+    for issue in reversed(issues):
+        for section in issue["sections"]:
+            if section["kind"] != "projects":
                 continue
-            github = source["github"]
-            project_lines.append(f"| [{source['name']}](https://github.com/{github['repository']}) | {github['stars']:,} | {github['checked_on']} | {source['focus']} | {github['pushed_at'][:10]} |")
-        project_lines.append("")
-    project_lines += ["这是观察池，不是能力排名。n8n 等采用 fair-code 或自定义许可的公开项目，应按原仓库许可说明区分；加入名单不代表所有项目使用相同开源许可。", ""]
+            for e in section["entries"]:
+                g = e["github"]
+                project_lines.append(f"| [{g['repository']}](https://github.com/{g['repository']}) | {' / '.join(e['tags'])} | {g['stars']:,} | {g['checked_on']} | {e['license']} | [{issue['id']}](content/{issue['id']}.md#item-{e['id']}) |")
+    project_lines += ["", "代码许可不自动覆盖模型权重、训练数据或素材；具体条件见项目条目和原仓库。", ""]
     outputs["PROJECTS.md"] = "\n".join(project_lines)
     ET.register_namespace("atom", "http://www.w3.org/2005/Atom")
     rss = ET.Element("rss", version="2.0")
     channel = ET.SubElement(rss, "channel")
-    for tag, value in (("title", "Agent & LLM 前沿周报"), ("link", repo_url), ("description", "每周读懂值得跟踪的技术变化：论文、Agent 工程、开源与评测。"), ("language", "zh-CN")):
+    for tag, value in (("title", "AI 周刊"), ("link", repo_url), ("description", "论文与研究、新闻动态、开源项目。每周精选值得读、值得聊、值得试的 AI 进展。"), ("language", "zh-CN")):
         ET.SubElement(channel, tag).text = value
     ET.SubElement(channel, "{http://www.w3.org/2005/Atom}link", href=f"https://raw.githubusercontent.com/{config['repository']}/main/feed.xml", rel="self", type="application/rss+xml")
     for issue in reversed(issues):
