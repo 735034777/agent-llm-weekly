@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="320" viewBox="0 0 1200 320" role="img" aria-labelledby="title desc">
+  <title id="title">Agent &amp; LLM Weekly</title>
+  <desc id="desc">中文技术周报，研究、工程、开源与评测。</desc>
+  <rect width="1200" height="320" rx="18" fill="#102b30"/>
+  <path d="M820 0V320M900 0V320M980 0V320M1060 0V320M1140 0V320M780 80H1200M780 160H1200M780 240H1200" stroke="#23464a" stroke-width="1"/>
+  <circle cx="980" cy="160" r="97" fill="none" stroke="#7cbaa5" stroke-width="2"/>
+  <circle cx="980" cy="160" r="54" fill="none" stroke="#7cbaa5" stroke-width="2"/>
+  <circle cx="980" cy="160" r="9" fill="#f5c875"/>
+  <path d="M980 160L1060 96" stroke="#f5c875" stroke-width="3"/>
+  <circle cx="1060" cy="96" r="6" fill="#f5c875"/>
+  <text x="64" y="78" font-family="Arial,sans-serif" font-size="18" letter-spacing="4" fill="#a8cabe">RESEARCH / ENGINEERING / OPEN SOURCE</text>
+  <text x="60" y="160" font-family="Arial,sans-serif" font-weight="700" font-size="63" fill="#f5f2e9">Agent &amp; LLM Weekly</text>
+  <text x="64" y="220" font-family="PingFang SC,Microsoft YaHei,sans-serif" font-size="27" fill="#dce5df">每周读懂值得跟踪的技术变化</text>
+  <text x="65" y="274" font-family="Arial,sans-serif" font-size="16" letter-spacing="3" fill="#a8cabe">MONDAY · 09:00 · ASIA/SHANGHAI</text>
+</svg>

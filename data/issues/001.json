@@ -1,0 +1,159 @@
+{
+  "id": "001",
+  "title": "记忆、训练与可恢复执行",
+  "start": "2026-11-02",
+  "end": "2026-11-08",
+  "published_on": "2026-11-12",
+  "summary": "创刊号回顾上一完整自然周，精选 6 条更新与 2 个长期参考入口。本期重点是 Agent 如何保留经验、从不同执行方式中学习，以及怎样在任务中断后正确继续。论文结果、工程经验和版本修复分别呈现，不把它们混成同一种能力突破。",
+  "lead_id": "anthropic-memory-2026-11-06",
+  "sections": [
+    {
+      "title": "Agent 工程",
+      "entries": [
+        {
+          "id": "anthropic-memory-2026-11-06",
+          "title": "Agent 记忆：把记录、整理与取用分开设计",
+          "date": "2026-11-06",
+          "date_label": "文章发布",
+          "tags": ["记忆", "上下文", "工程观察"],
+          "summary": "Anthropic 将跨会话记忆拆成原始记录、记忆笔记、知识表示和预先注入的上下文，并讨论 dreaming（在交互间隙整理记忆）机制。文章展示了用原始记录纠正错误笔记、整理 wiki 知识页面和调整注入内容的案例。",
+          "why": "值得借鉴的是记忆维护流程：不仅决定存什么，还要能回查证据、修正错误，并控制每次加载的内容。",
+          "limits": "这是作者的案例与评测报告，不能推导出记忆越多效果越好。维护记忆需要额外计算；部分任务中 wiki 没有明显收益。",
+          "links": [{"label":"原始文章","url":"https://www.anthropic.com/research/components-of-agent-memory"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": false
+        }
+      ]
+    },
+    {
+      "title": "模型与研究",
+      "entries": [
+        {
+          "id": "harness-s-2611.04277v1",
+          "title": "Harness-S：把不同执行系统的成功经验学进模型",
+          "date": "2026-11-03",
+          "date_label": "论文首发",
+          "tags": ["Agent 训练", "强化学习", "预印本"],
+          "summary": "执行系统（harness）指模型外围的提示、工具接口和运行规则。Harness-S 准备针对不同失败原因的系统变体，在基础系统的尝试全部失败时，用变体生成训练轨迹，再以强化学习更新同一模型。作者在 AppWorld、SWE-Gym 和 DBBench 中报告：回到原始系统后，训练收益仍能保留。",
+          "why": "它将一个工程问题变成训练问题：更合适的工具接口或执行规则，能否帮助模型学到可迁移的行为，而不只是改善当次结果？",
+          "limits": "结果来自论文设定的模型与环境，本刊未复现。比较总成本时还需计入变体构建、路由和训练，不能只比较最终执行次数。",
+          "links": [{"label":"论文 v1","url":"https://arxiv.org/abs/2611.04277v1"},{"label":"作者代码","url":"https://github.com/DeepExperience/Harness-S"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": false
+        },
+        {
+          "id": "axion-2611.03233v2",
+          "title": "Axion 1.0：从独立推理到工具交互的三阶段训练",
+          "date": "2026-11-02",
+          "date_label": "论文首发",
+          "tags": ["后训练", "Agent 模型", "预印本"],
+          "summary": "Axion 1.0 报告两阶段监督微调加强化学习的训练路线：先构造适合基础模型的推理数据，再加入可自动验证的工具任务，最后强化长程推理与环境交互。论文首次提交于 11 月 2 日，本期参考 11 月 3 日的 v2。",
+          "why": "适合关注 Agent 模型训练的人阅读：重点看数据如何生成、验证和过滤，以及两类推理任务如何衔接，而不只看结果表。",
+          "limits": "作者宣称开放权重之外的训练配方和代码；本期核查的是论文中的方法与开放声明，未逐项验证全部资源，也未复现性能。步骤少不等于训练成本低。",
+          "links": [{"label":"论文 v2","url":"https://arxiv.org/abs/2611.03233v2"},{"label":"论文全文","url":"https://arxiv.org/html/2611.03233v2"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": false
+        }
+      ]
+    },
+    {
+      "title": "开源更新",
+      "entries": [
+        {
+          "id": "langgraph-1.2.20",
+          "title": "LangGraph 1.2.20：让恢复操作对应到正确的中断",
+          "date": "2026-11-05",
+          "date_label": "版本发布",
+          "tags": ["人工介入", "状态恢复", "版本更新"],
+          "summary": "LangGraph 核心包 1.2.20 为同一任务中的每个 interrupt()（暂停任务、等待外部输入的调用）提供独立 ID，并增加拒绝过期中断回答的严格恢复模式。本期引用核心包的 Release，不混用同一仓库里的 SDK 或 CLI 版本号。",
+          "why": "对于需要人工确认、可能暂停多次的 Agent，恢复时把答复接到正确状态，是值得单独测试的正确性问题。",
+          "limits": "这是执行状态管理的更新，不意味着模型推理能力提高。本刊未执行升级测试，接入前仍需核对调用方式与现有持久化状态的兼容性。",
+          "links": [{"label":"官方 Release","url":"https://github.com/langchain-ai/langgraph/releases/tag/1.2.20"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": false
+        },
+        {
+          "id": "openhands-v1.37.0",
+          "title": "OpenHands v1.37.0：展示自动化流程，修复会话恢复体验",
+          "date": "2026-11-06",
+          "date_label": "版本发布",
+          "tags": ["编程 Agent", "可观察性", "常规工程更新"],
+          "summary": "OpenHands v1.37.0 加入用 Mermaid 图解释自动化流程的能力，同时修复恢复会话排序、启动过程标题显示和会话回放完成前显示空聊天建议等问题。",
+          "why": "可视化流程与正确恢复历史，有助于使用者理解 Agent 正在做什么。适合作为跟踪成熟项目如何处理真实使用问题的例子。",
+          "limits": "这一版主要是产品与工程改进，Release 没有提供任务成功率提升证据。本刊只核查变更记录，未安装验证。",
+          "links": [{"label":"官方 Release","url":"https://github.com/OpenHands/OpenHands/releases/tag/v1.37.0"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": false
+        }
+      ]
+    },
+    {
+      "title": "评测与观察",
+      "entries": [
+        {
+          "id": "frontierphysics-2611.06910v1",
+          "title": "FrontierPhysics：评估从文献到研究产出的完整过程",
+          "date": "2026-11-04",
+          "date_label": "论文首发",
+          "tags": ["科研 Agent", "端到端评测", "预印本"],
+          "summary": "FrontierPhysics 用物理研究任务评估文献检索、研究计划、实验执行和结构化研究产出。作者结合确定性验证与专家制定的评分标准，试图同时衡量结果正确性和研究质量。",
+          "why": "值得看的是它如何把“会回答问题”与“能完成研究过程”分开评价。设计自己的科研 Agent 测试集时，可以参考任务构成和评分依据。",
+          "limits": "“可发表性”是该基准定义下的评价，不等于通过真实期刊审稿。结果受任务选择、执行配置和评分标准影响，不能直接推断所有学科的研究能力。",
+          "links": [{"label":"论文 v1","url":"https://arxiv.org/abs/2611.06910v1"},{"label":"评测方法全文","url":"https://arxiv.org/html/2611.06910v1"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": false
+        }
+      ]
+    },
+    {
+      "title": "长期参考",
+      "entries": [
+        {
+          "id": "reference-swebench",
+          "title": "SWE-bench：读榜单之前，先看测试使用了什么系统",
+          "date": null,
+          "tags": ["编程评测", "阅读方法"],
+          "summary": "SWE-bench 提供多个任务集合和评测视图。官方站点区分原始集合、Lite、Verified、多语言与多模态等设置，也提供在相同 mini-SWE-agent 环境下比较模型的视图。",
+          "why": "同一个项目名称不代表相同的评测条件。记录具体子集和执行系统，才有可能判断提升来自模型还是外围设计。",
+          "limits": "本条是创刊时建立的阅读入口，没有声称榜单在本周发生变化。修复已有仓库问题的成绩，也不能直接代表从零开发完整产品的能力。",
+          "links": [{"label":"官方评测入口","url":"https://www.swebench.com/"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": true
+        },
+        {
+          "id": "reference-metr",
+          "title": "METR：持续跟踪任务跨度与实际工作影响",
+          "date": null,
+          "tags": ["能力评测", "长期观察"],
+          "summary": "METR 的公开研究涉及 Agent 任务完成时间跨度、技术工作生产率和评测方法。它提供了一个从实验设计和工作影响观察模型能力的入口。",
+          "why": "建议读研究设计、样本选择和不确定性说明，再看汇总图；尤其留意测量的是任务成功率、人的工作时间，还是人的主观感受。",
+          "limits": "本条属于长期参考，不表示本周有新的 METR 结论。不同研究测量的对象不同，不能把时间跨度指标直接换算成岗位替代比例。",
+          "links": [{"label":"机构主页","url":"https://metr.org/"},{"label":"研究目录","url":"https://metr.org/research/"}],
+          "verification": {"level":"source-reviewed","checked_on":"2026-11-12"},
+          "evergreen": true
+        }
+      ]
+    }
+  ],
+  "exercise": "选一个你已经反复执行的 Agent 任务，固定模型、工具和预算，比较三种设置：不保留跨会话记忆、保存未经整理的笔记、保存可回查原始记录且经过整理的笔记。各组从相同历史快照独立开始，每个任务重复运行，避免组间泄漏经验。记录成功率、token（模型处理文本的计量单位）消耗、人工接手次数及错误记忆的再次引用次数；整理记忆的开销计入总成本。先做小样本探索。这是编辑建议，本刊未执行该实验，也不预设第三种一定更好。",
+  "source_checks": [
+    {"id":"anthropic-engineering","status":"reviewed","checked_on":"2026-11-12","note":"检查文章目录，阅读 11 月 6 日记忆文章的正文、案例和限制。"},
+    {"id":"openai-research","status":"partial","checked_on":"2026-11-12","note":"检查研究入口；未逐篇穷尽本周全部发布，不据此声称没有更新。"},
+    {"id":"deepmind","status":"partial","checked_on":"2026-11-12","note":"检查官方博客入口，首期未逐篇核实所有发布。"},
+    {"id":"deepseek","status":"partial","checked_on":"2026-11-12","note":"确认官方组织入口，未逐仓库回溯本周提交。"},
+    {"id":"qwen","status":"partial","checked_on":"2026-11-12","note":"确认官方组织入口，未逐仓库回溯本周提交。"},
+    {"id":"hf-papers","status":"reviewed","checked_on":"2026-11-12","note":"从 2026-W45 周榜筛选候选，入选论文返回 arXiv 核查日期与内容。"},
+    {"id":"arxiv","status":"reviewed","checked_on":"2026-11-12","note":"核查三篇入选论文的提交记录与正文对应部分；非全类别扫描。"},
+    {"id":"openreview","status":"partial","checked_on":"2026-11-12","note":"确认入口，未确认入选预印本的正式录用或审稿状态。"},
+    {"id":"openhands","status":"reviewed","checked_on":"2026-11-12","note":"通过 GitHub API 核查本周版本 v1.37.0 的发布时间与完整 Release 文案。"},
+    {"id":"langgraph","status":"reviewed","checked_on":"2026-11-12","note":"通过 GitHub API 核查核心包 1.2.20，区分 SDK 和 CLI 发布。"},
+    {"id":"mini-swe-agent","status":"not_checked","checked_on":"2026-11-12","note":"已加入后续追踪目录，本期未单独检查版本变化"},
+    {"id":"vllm","status":"not_checked","checked_on":"2026-11-12","note":"已加入后续追踪目录，本期未检查版本变化"},
+    {"id":"metr","status":"partial","checked_on":"2026-11-12","note":"检查主页和研究目录，用作长期入口，未核查每篇研究。"},
+    {"id":"swebench","status":"partial","checked_on":"2026-11-12","note":"检查官方任务集合与评测视图说明，未回溯本周榜单变化。"},
+    {"id":"tau2","status":"partial","checked_on":"2026-11-12","note":"确认官方仓库，未回溯本周代码变化。"},
+    {"id":"simon-willison","status":"partial","checked_on":"2026-11-12","note":"检查近期日志入口，未将 11 月 9 日之后的材料纳入本期新闻。"},
+    {"id":"latent-space","status":"partial","checked_on":"2026-11-12","note":"检查出版物入口，未将当前周访谈误记为上一周发布。"}
+  ],
+  "corrections": []
+}

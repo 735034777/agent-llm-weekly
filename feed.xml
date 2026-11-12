@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+  <channel>
+    <title>Agent &amp; LLM 前沿周报</title>
+    <link>https://github.com/735034777/agent-llm-weekly</link>
+    <description>每周读懂值得跟踪的技术变化：论文、Agent 工程、开源与评测。</description>
+    <language>zh-CN</language>
+    <atom:link href="https://raw.githubusercontent.com/735034777/agent-llm-weekly/main/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>第 001 期｜记忆、训练与可恢复执行</title>
+      <link>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-001</link>
+      <guid>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-001</guid>
+      <description>创刊号回顾上一完整自然周，精选 6 条更新与 2 个长期参考入口。本期重点是 Agent 如何保留经验、从不同执行方式中学习，以及怎样在任务中断后正确继续。论文结果、工程经验和版本修复分别呈现，不把它们混成同一种能力突破。</description>
+      <pubDate>Thu, 12 Nov 2026 09:00:00 +0800</pubDate>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,23 @@
+{
+  "repository": "735034777/agent-llm-weekly",
+  "timezone": "Asia/Shanghai",
+  "sources": [
+    {"id":"anthropic-engineering","name":"Anthropic Engineering","category":"一手研究与工程","url":"https://www.anthropic.com/engineering","method":"检查本周新文章；读取方法、案例和局限。","priority":1},
+    {"id":"openai-research","name":"OpenAI Research","category":"一手研究与工程","url":"https://openai.com/research/","method":"从研究索引进入技术报告、评测及系统卡。","priority":1},
+    {"id":"deepmind","name":"Google DeepMind","category":"一手研究与工程","url":"https://deepmind.google/blog/","method":"查本周模型、推理、多模态与 Agent 原始发布。","priority":1},
+    {"id":"deepseek","name":"DeepSeek","category":"一手研究与工程","url":"https://github.com/deepseek-ai","method":"查官方新仓库、论文与有实质内容的变更。","priority":1},
+    {"id":"qwen","name":"Qwen","category":"一手研究与工程","url":"https://github.com/QwenLM","method":"查模型与 Agent 项目，返回论文及模型卡核实。","priority":1},
+    {"id":"hf-papers","name":"Hugging Face Daily Papers","category":"论文发现","url":"https://huggingface.co/papers","method":"按对应 ISO 周浏览，热度只作线索；回原论文核查首次发布日期。","priority":1},
+    {"id":"arxiv","name":"arXiv cs.AI / cs.CL / cs.LG","category":"论文发现","url":"https://arxiv.org/list/cs.AI/recent","method":"检索 agentic RL、tool use、memory、reasoning、evaluation；必要时扩展 cs.CL/cs.LG。","priority":1},
+    {"id":"openreview","name":"OpenReview","category":"论文发现","url":"https://openreview.net/","method":"对入选论文检查公开审稿与作者回应，保留预印本和录用状态区别。","priority":2},
+    {"id":"openhands","name":"OpenHands Releases","category":"开源工程","url":"https://github.com/OpenHands/OpenHands/releases","method":"按 published_at 筛选本周版本，读关联 PR，不跟踪所有依赖升级。","priority":1},
+    {"id":"langgraph","name":"LangGraph Releases","category":"开源工程","url":"https://github.com/langchain-ai/langgraph/releases","method":"区分核心包、SDK 和 CLI 版本，关注执行、持久化与人工介入变化。","priority":1},
+    {"id":"mini-swe-agent","name":"mini-SWE-agent","category":"开源工程","url":"https://github.com/SWE-agent/mini-swe-agent","method":"关注 Agent 接口、最小执行系统与评测变化。","priority":2},
+    {"id":"vllm","name":"vLLM Releases","category":"开源工程","url":"https://github.com/vllm-project/vllm/releases","method":"关注影响 LLM/Agent 的推理、工具调用、成本与模型支持变化。","priority":2},
+    {"id":"metr","name":"METR","category":"评测与可靠性","url":"https://metr.org/","method":"查任务时间跨度、生产率与评测方法，区分研究、初步笔记和推断。","priority":1},
+    {"id":"swebench","name":"SWE-bench","category":"评测与可靠性","url":"https://www.swebench.com/","method":"核查子集、harness、预算和验证方式，避免只引用排行榜名次。","priority":1},
+    {"id":"tau2","name":"τ²-bench","category":"评测与可靠性","url":"https://github.com/sierra-research/tau2-bench","method":"关注工具、用户交互、成功率和重复运行可靠性。","priority":2},
+    {"id":"simon-willison","name":"Simon Willison","category":"实践与访谈","url":"https://simonwillison.net/","method":"优先读作者亲测的技术记录，转述消息返回原出处。","priority":2},
+    {"id":"latent-space","name":"Latent Space","category":"实践与访谈","url":"https://latent.space/","method":"选技术作者访谈与工程讨论；新闻摘要仅作发现入口。","priority":2}
+  ]
+}

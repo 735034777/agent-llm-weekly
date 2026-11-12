@@ -1,0 +1,16 @@
+name: 内容更正
+description: 报告事实、链接、日期或解读问题
+title: '[更正] '
+body:
+  - type: input
+    id: issue
+    attributes:
+      label: 期号与条目
+    validations:
+      required: true
+  - type: textarea
+    id: correction
+    attributes:
+      label: 问题、建议更正与原始证据
+    validations:
+      required: true
