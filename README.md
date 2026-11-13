@@ -44,6 +44,8 @@
 
 人物动态可以轻松，但涉及负面或私生活指控须有可靠公开依据，不传播匿名传言。固定关注 Tibo（[@thsottiaux](https://x.com/thsottiaux)）的 Codex 动态；额度消息核对原帖、时间及适用范围，社区归档不代表个人账户状态。
 
+发布前对照全部往期去重。已介绍的论文、新闻和项目不重复推荐；同一主题只有实质新进展才再次收录，写清新增内容并链接往期。
+
 每期正文保留直接来源，详细核查范围与缺口放在 `evidence/NNN.md`。实质更正在当期留痕并同步 Release，Git 历史保留旧版本。推荐内容或纠错可提交 [Issue](https://github.com/735034777/agent-llm-weekly/issues/new/choose)。
 
 ## 维护
