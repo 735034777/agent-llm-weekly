@@ -3,7 +3,7 @@ import importlib.util
 import json
 import unittest
 import xml.etree.ElementTree as ET
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -18,7 +18,8 @@ class EditorialSafeguards(unittest.TestCase):
         self.config = json.loads((ROOT / "data/sources.json").read_text())
         fixture_source_ids = {c["id"] for c in self.issue["source_checks"]}
         self.config["sources"] = [s for s in self.config["sources"] if s["id"] in fixture_source_ids]
-        self.today = date(2026, 11, 12)
+        self.today = max(date.fromisoformat(self.issue["published_on"]),
+                         *(date.fromisoformat(c["date"]) for c in self.issue["corrections"]))
 
     def check(self, issues=None):
         build.validate(issues or [self.issue], self.config, self.today)
@@ -71,7 +72,7 @@ class EditorialSafeguards(unittest.TestCase):
             self.check()
 
     def test_future_publication_is_rejected(self):
-        self.issue["published_on"] = "2026-11-13"
+        self.issue["published_on"] = (self.today + timedelta(days=1)).isoformat()
         with self.assertRaisesRegex(ValueError, "发布日期"):
             self.check()
 

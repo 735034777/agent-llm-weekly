@@ -24,6 +24,8 @@
 | news | `date_basis`，可选 `context` | date 在新闻周内，date_basis 交代原来源日期、时间戳及必要的时区换算 |
 | projects | `selection/github/license/getting_started`，可选 `requirements` | selection 为 discovery 或 update；发现使用核查日，更新使用周内真实事件日。github 至少含 repository、stars、checked_on，可记录 pushed_at、archived；后两者不能独立证明维护质量 |
 
+条目可选 `image` 对象，包含 `url/alt/caption/credit/source_url/rights_note/checked_on`。url 为可直接显示的 HTTPS 原图，source_url 为官方文章或固定提交的图片来源；rights_note 记录出处及许可／署名说明，不把公开可访问等同于无限转载授权。图片经过实际查看后再入选，元数据驱动正文与 Release 同步生成，核查附录记录图源。
+
 source_checks 记录每个目录来源的 `id/status/checked_on/note`；最新一期完整覆盖当前目录，未查的如实记 not_checked。历史只要求 ID 有效，不要求补查后来新增来源。公开更正含 `date/text`。
 
 直接编辑 data 输入与维护文档；`content/`、`evidence/`、ARCHIVE、SOURCES、PROJECTS、feed 以及 README 最新一期块由脚本生成。schema 2 首期修订前的数据仍可在 Git 历史查看。

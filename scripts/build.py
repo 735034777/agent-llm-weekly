@@ -9,6 +9,7 @@ import xml.etree.ElementTree as ET
 from collections import Counter
 from datetime import date, datetime, time, timedelta
 from email.utils import format_datetime
+from html import escape
 from pathlib import Path
 from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
@@ -115,6 +116,12 @@ def validate(issues, config, today=None):
                 require(bool(entry["links"]), f"{key}: 缺少原始来源")
                 for link in entry["links"]:
                     require(link["label"].strip() and public_url(link["url"]), f"{key}: 来源链接错误")
+                if "image" in entry:
+                    picture = entry["image"]
+                    require(public_url(picture["url"]) and public_url(picture["source_url"]), f"{key}: 配图链接错误")
+                    for field in ("alt", "caption", "credit", "rights_note"):
+                        require(picture.get(field, "").strip(), f"{key}: 配图缺少 {field}")
+                    require(iso(picture["checked_on"]) <= today, f"{key}: 配图核查日期不能在未来")
                 verification = entry["verification"]
                 if "github" in entry:
                     validate_github(entry["github"], today)
@@ -181,6 +188,10 @@ def render_issue(issue, source_names=None):
                 g = entry["github"]
                 lines += [f"⭐ {g['stars']:,}（{g['checked_on']} 快照） · {entry['license']}", ""]
             lines += [entry["summary"], ""]
+            if "image" in entry:
+                picture = entry["image"]
+                lines += [f'<p align="center"><a href="{escape(picture["url"], quote=True)}"><img src="{escape(picture["url"], quote=True)}" alt="{escape(picture["alt"], quote=True)}" width="800"></a></p>', "",
+                          f"*{picture['caption']} · 图源：[{picture['credit']}]({picture['source_url']})*", ""]
             if kind == "research":
                 lines += [entry["insight"], "", entry["limits"], ""]
             elif kind == "projects":
@@ -214,6 +225,9 @@ def render_evidence(issue, source_names):
                 lines += [f"仓库：{g['repository']}；star {g['stars']:,}；查询日 {g['checked_on']}。", ""]
             if v.get("reproduction"):
                 lines += ["复现记录：" + v["reproduction"], ""]
+            if "image" in e:
+                picture = e["image"]
+                lines += [f"配图核查：{picture['checked_on']}；[{picture['credit']}]({picture['source_url']}) · [原图]({picture['url']})。{picture['rights_note']}", ""]
             lines += [" · ".join(f"[{l['label']}]({l['url']})" for l in e["links"]), ""]
     names = {"reviewed": "完成注明范围", "partial": "部分检查", "unavailable": "访问失败", "not_checked": "未检查"}
     lines += ["## 来源覆盖", "", "| 来源 | 状态 | 日期 | 实际范围 |", "| --- | --- | --- | --- |"]
