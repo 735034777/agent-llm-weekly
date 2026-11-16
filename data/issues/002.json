@@ -1,0 +1,796 @@
+{
+  "schema_version": 2,
+  "id": "002",
+  "title": "让实验回答问题，让工具保留控制",
+  "start": "2026-11-09",
+  "end": "2026-11-15",
+  "published_on": "2026-11-16",
+  "summary": "本期从科研 Agent 如何比较竞争解释读起，关注 AI 公司的产品、资本与管理层变化，以及语言技术的公共文化应用。四个项目分别面向界面设计、视觉创作、音乐和推理系统。共 12 条精选、4 张原图；新闻覆盖 11 月 9—15 日，研究回看近期成果，项目使用 11 月 16 日资料快照。已对照全部往期排除重复论文、事件和仓库。",
+  "highlights": [
+    {
+      "entry_id": "contrastive-discovery-2611-14514",
+      "text": "一个猜想被否定之后，如何让同一份证据指向更好的解释？"
+    },
+    {
+      "entry_id": "chatgpt-wallet-20261113",
+      "text": "Agent 开始参与付款，但当前产品仍保留逐笔审批。"
+    },
+    {
+      "entry_id": "yue2-discovery-002",
+      "text": "从可编辑的乐谱到歌曲：音乐生成留下可以干预的中间步骤。"
+    }
+  ],
+  "sections": [
+    {
+      "kind": "research",
+      "title": "论文与研究",
+      "intro": "一篇会议录用论文、一篇期刊提前在线论文和一篇研究博客；日期指所读版本，不都属于新闻周。",
+      "entries": [
+        {
+          "id": "contrastive-discovery-2611-14514",
+          "title": "Contrastive Discovery：实验否定了一个猜想，接下来支持哪个解释？",
+          "date": "2026-11-10",
+          "date_label": "所读预印本 v1 日期",
+          "tags": [
+            "科学发现",
+            "Agent",
+            "NeurIPS"
+          ],
+          "summary": "科研 Agent 提出一个猜想、跑实验、发现它不成立，常常就停在“否定”这一步。Contrastive Discovery 把一次探索的单位改成一个问题及一组互斥、尽可能覆盖所有情况的解释，让同一份证据同时比较多个答案。例如，某因素与结果的关系可能是正相关、负相关或无关联；排除正相关之后，仍要判断另外两种情况。模型据此调整对各解释的信念分配，并用变化幅度引导后续搜索。",
+          "links": [
+            {
+              "label": "论文与录用声明",
+              "url": "https://arxiv.org/abs/2611.14514"
+            },
+            {
+              "label": "正文",
+              "url": "https://arxiv.org/html/2611.14514v1"
+            },
+            {
+              "label": "NeurIPS 官方收录目录",
+              "url": "https://nips.cc/Downloads/2026"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "读取 arXiv v1 摘要、方法、实验设置、结果与局限段落；作者声明已录用，NeurIPS 2026 官方 Downloads 目录收录同名论文。单篇会议页面访问失败，不额外断言展示奖项或轨道。未完整审查全部附录，也未运行实验。"
+          },
+          "publication": {
+            "type": "conference",
+            "venue": "NeurIPS 2026",
+            "status": "accepted",
+            "evidence_url": "https://nips.cc/Downloads/2026"
+          },
+          "insight": "作者在六个领域的表格数据上，以 GPT-4o 为基础 Agent、每次运行 200 次证据生成作为比较条件，报告相对逐个假设的 surprisal 基线，多解决了 67% 的问题。值得读的是如何利用已有实验去区分竞争解释，而不是只奖励一个猜想被推翻。",
+          "limits": "“解决”依赖另一 LLM 给出的信念分配及阈值；候选解释也可能遗漏。这里得到的是观察数据上的统计结论，不等于因果发现或真实实验室突破。前四个数据集各运行三次，两个成本最高的数据集各一次；未由本刊独立复现。"
+        },
+        {
+          "id": "aide-natcommun-78887",
+          "title": "AIDE：把科学数据整理交给多 Agent 流程",
+          "date": "2026-11-04",
+          "date_label": "期刊在线发表日期",
+          "tags": [
+            "数据整理",
+            "科学大模型",
+            "Nature Communications"
+          ],
+          "summary": "AIDE 把数据收集、筛选和整理串成一条流程，将自然语言的数据需求转换为可供科学 AI 使用的数据集。论文摘要报告，在生物医学与化学的 14 项任务中，用这条流程整理的数据训练或构建模型，表现达到或超过人工整理数据的对照。关注点是训练之前的数据工作，而非让 Agent 直接代替科学家下结论。",
+          "links": [
+            {
+              "label": "出版方与摘要",
+              "url": "https://www.nature.com/articles/s41467-026-78887-x"
+            },
+            {
+              "label": "出版方论文 PDF",
+              "url": "https://www.nature.com/articles/s41467-026-78887-x_reference.pdf"
+            }
+          ],
+          "verification": {
+            "level": "source-partial",
+            "checked_on": "2026-11-16",
+            "scope": "通过出版方可检索页面核对题名、作者、摘要、10 月 7 日录用与 11 月 4 日在线发表信息；直连网页和 PDF 被出版方登录重定向阻挡，仅阅读索引展示的摘要与部分正文。"
+          },
+          "publication": {
+            "type": "journal",
+            "venue": "Nature Communications · Article in Press",
+            "status": "published",
+            "evidence_url": "https://www.nature.com/articles/s41467-026-78887-x"
+          },
+          "insight": "对于准备领域微调或检索数据的人，这篇研究把容易被忽略的收集、质量筛选、格式整理拆成了可以研究和评估的环节。",
+          "limits": "目前为已接受论文的提前在线版本，尚可能编辑。本文仅依据摘要及有限正文介绍；未核完各任务基线、成本和泄漏控制，不能把摘要结论外推为所有科学领域都适用。"
+        },
+        {
+          "id": "google-sleep-20261027",
+          "title": "Google 的 sleep framework：把短期信息逐步写入模型参数",
+          "date": "2026-10-27",
+          "date_label": "研究博客发布日期",
+          "tags": [
+            "持续学习",
+            "参数记忆",
+            "Google Research"
+          ],
+          "summary": "Google Research 介绍一种交替运行的学习流程：活跃阶段接收信息，离线“睡眠”阶段再做知识巩固。它在预先设计的架构内启用低秩专家和 MoE 记忆模块，将短期信息蒸馏进长期参数；另用生成、筛选的练习样本继续训练。这里的“睡眠”是离线训练步骤，模型代码和训练规则仍由人设定。",
+          "links": [
+            {
+              "label": "官方研究博客",
+              "url": "https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "读取官方博客中的 active/sleep 两阶段、记忆巩固、dreaming 与评测段落，并查看原始流程图。未完整审核关联论文或复现，不采用缺少完整条件的性能数字。"
+          },
+          "publication": {
+            "type": "blog",
+            "venue": "Google Research"
+          },
+          "insight": "适合关注持续学习的人阅读：它尝试在运行后更新模型的参数记忆，并研究如何减少学新知识时对旧能力的干扰。",
+          "limits": "这是研究方案，仍需离线计算、参数容量与训练过程；不能理解成任意已部署模型暂停片刻就能永久学习，也不能由文章示例推断所有任务都消除了遗忘。",
+          "image": {
+            "url": "https://storage.googleapis.com/gweb-research2023-media/images/LLMSleep1_Framework.width-1250.png",
+            "alt": "Sleep framework 从活跃阶段的短期记忆进入知识巩固和 dreaming，再形成参数记忆的流程图。",
+            "caption": "短期记忆在离线阶段经过巩固与练习，进入长期参数；图为作者的框架示意。",
+            "credit": "Google Research",
+            "source_url": "https://research.google/blog/the-sleep-framework-a-new-way-for-llms-to-retain-knowledge-in-continual-learning/",
+            "rights_note": "官方博客原图外链，保留原样并标注机构与来源；未宣称图片属于本刊或可脱离原文任意再授权。",
+            "checked_on": "2026-11-16"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "news",
+      "title": "新闻动态",
+      "entries": [
+        {
+          "id": "claude-fable-mythos-52-20261109",
+          "title": "Claude Fable 5.2 与 Mythos 5.2：同一基础模型，两种开放方式",
+          "date": "2026-11-09",
+          "date_label": "官方公告日期",
+          "tags": [
+            "模型",
+            "产品"
+          ],
+          "summary": "Anthropic 发布 Fable 5.2 和 Mythos 5.2，重点展示复杂编程、科研与工程任务。两者基于同一模型，Fable 配有更严格的网络安全与生物领域限制；相应专业用途可申请 Mythos 的验证计划。公告列出的标准 API 价格为每百万输入 token 8 美元、输出 token 40 美元；可选 fast mode 为 16／80 美元。",
+          "links": [
+            {
+              "label": "官方公告",
+              "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "核查官方发布日期、模型关系、验证计划、标准与 fast mode 报价。未将厂商演示或评测作为独立复现，未测试实际账户权限。"
+          },
+          "date_basis": "采用官方文章标注的公历日期；页面没有明确时区时间戳，未反推具体北京时间。",
+          "context": "官方展示了软硬件、数学与机器人案例。这些是厂商提供的测试和演示，具体任务仍需看配置、预算和人工介入条件。"
+        },
+        {
+          "id": "anthropic-roadshow-20261110",
+          "title": "Anthropic 启动 IPO 路演，仍处于拟发行阶段",
+          "date": "2026-11-10",
+          "date_label": "官方公告日期",
+          "tags": [
+            "资本市场",
+            "企业"
+          ],
+          "summary": "Anthropic 宣布启动首次公开发行路演，拟发行 8.25 亿股 A 类普通股，预期发行价区间为每股 70—78 美元，并申请以 ANT 为代码在纳斯达克上市。截至公告发布时，注册声明尚未生效，最终定价与发行完成仍待后续确认。",
+          "links": [
+            {
+              "label": "官方公告",
+              "url": "https://www.anthropic.com/news/roadshow-launch"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "读取官方路演公告，核对日期、拟发行股数、价格区间和注册声明尚未生效的措辞；不将计划金额作为已到账融资。"
+          },
+          "date_basis": "采用官方文章标注的公历日期；页面没有明确时区时间戳，未反推具体北京时间。"
+        },
+        {
+          "id": "nvidia-ceo-transition-20261112",
+          "title": "黄仁勋辞去 NVIDIA CEO，Colette Kress 暂时接任",
+          "date": "2026-11-12",
+          "date_label": "官方公告日期",
+          "tags": [
+            "芯片",
+            "公司治理",
+            "人物"
+          ],
+          "summary": "NVIDIA 董事会公告称，黄仁勋辞去总裁、首席执行官及董事职务，即刻生效。现任 CFO Colette Kress 担任临时 CEO，并继续兼任 CFO；董事会将从内部与外部寻找永久继任者。Harvey C. Jones 同时获任董事会主席。对 AI 产业而言，这是关键算力供应商的管理层变动，后续应关注正式接班安排及公司经营披露。",
+          "links": [
+            {
+              "label": "官方公告",
+              "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-CEO-Transition/default.aspx"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "读取 NVIDIA 投资者关系官网公告，核对辞职职务、即刻生效、临时任命和继任者搜索。不把未在此公告确认的私生活或情报指控当作事实。"
+          },
+          "date_basis": "采用官方文章标注的公历日期；页面没有明确时区时间戳，未反推具体北京时间。"
+        },
+        {
+          "id": "chatgpt-wallet-20261113",
+          "title": "ChatGPT Wallet 开始推出：Agent 付款仍需逐笔确认",
+          "date": "2026-11-13",
+          "date_label": "官方公告日期",
+          "tags": [
+            "支付",
+            "Agent 商业应用"
+          ],
+          "summary": "OpenAI 与 American Express、Mastercard、Visa 合作推出 ChatGPT Wallet，先在 dots 中向符合条件的美国成年 ChatGPT Pro 用户开放，要求使用符合条件的美国发行卡。用户逐笔确认商品、总价与付款卡，并完成安全校验；代理拿到的是支付 token，而非真实卡信息。让用户预设限额后完全委托购买，是文章描述的后续方向，不能与当前逐笔确认混淆。",
+          "links": [
+            {
+              "label": "官方公告",
+              "url": "https://openai.com/index/introducing-chatgpt-wallet/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "核查官方文章的发布日期、Availability、逐笔确认与支付 token 机制；未实际开通或支付，未核验特定银行与用户账户支持情况。"
+          },
+          "date_basis": "采用官方文章标注的公历日期；页面没有明确时区时间戳，未反推具体北京时间。"
+        },
+        {
+          "id": "google-language-explorer-20261109",
+          "title": "Language Explorer 走进博物馆：从全球语言地图看 AI 的覆盖缺口",
+          "date": "2026-11-09",
+          "date_label": "官方公告日期",
+          "tags": [
+            "语言文化",
+            "公共教育"
+          ],
+          "summary": "Google 介绍 Language Explorer：基于 LinguaMeta 数据集，以互动可视化展示全球数千种语言，并成为柏林通信博物馆新展览的一部分。文章把工具放在低资源语言数据采集与本地社区合作的背景下，提醒读者语言技术的覆盖范围并不等于世界语言的丰富程度。研究者、教师和语言爱好者都可从网页入口探索。",
+          "links": [
+            {
+              "label": "官方公告",
+              "url": "https://research.google/blog/exploring-the-worlds-languages-with-language-explorer/"
+            },
+            {
+              "label": "语言探索工具",
+              "url": "https://sites.research.google/languages/language-explorer/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "读取官方文章，核对发布日期、LinguaMeta、互动平台和柏林展览介绍。未把新闻日期写成该工具第一次存在，也未逐一验证语言数据。"
+          },
+          "date_basis": "采用官方文章标注的公历日期；页面没有明确时区时间戳，未反推具体北京时间。"
+        }
+      ]
+    },
+    {
+      "kind": "projects",
+      "title": "开源项目",
+      "intro": "以下均为本期发现的已有项目，不宣称本周首发；star 为 2026-11-16 查询快照。",
+      "entries": [
+        {
+          "id": "impeccable-discovery-002",
+          "title": "Impeccable：给编程 Agent 一套可执行的设计语言",
+          "date": "2026-11-16",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "Skill",
+            "界面设计"
+          ],
+          "summary": "不只说“把页面做漂亮一点”，还可以用 polish、critique、audit 等明确动作，让 Agent 调整设计、评审可用性并检查常见界面问题。Impeccable 把这些操作做成设计技能，也提供源文件或页面检测器，适合已经在用 AI 写前端、希望进一步打磨视觉与交互的人。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/pbakaus/impeccable"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/pbakaus/impeccable/blob/d41d9860b0094dcb68030657da63461212835aaa/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "从 HelloGitHub 第 127 期 Skills 栏目发现。读取 README 的用途、快速开始和许可说明，查询 GitHub API 元数据、最近提交及最近三条 issue/PR 元数据。默认分支提交 d41d9860b0094dcb68030657da63461212835aaa。核查仅限上述范围；未安装、未运行，未将未合入 PR 当作已有能力。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "pbakaus/impeccable",
+            "stars": 110757,
+            "checked_on": "2026-11-16",
+            "pushed_at": "2026-11-16T00:46:03Z",
+            "archived": false
+          },
+          "getting_started": "先读官方文档和示例，再按自己的编程工具选择项目级安装；Codex 可通过 $impeccable 调用技能。可先从 critique／audit 开始，确认建议后再修改页面。",
+          "requirements": "npx 安装入口需要 Node；技能另有引擎运行条件。特别留意 live mode 的 Apply：README 提到无人轮询时会回退到关闭审批和沙箱的 CLI 调用，可配置为 chat 或 off。采用此功能前应读清执行权限。",
+          "license": "Apache-2.0；图片与示例中的第三方素材仍需遵循各自权利。",
+          "image": {
+            "url": "https://raw.githubusercontent.com/pbakaus/impeccable/d41d9860b0094dcb68030657da63461212835aaa/docs/images/readme-with.webp",
+            "alt": "Impeccable 作者展示的海滨旅馆网站设计：夜色插画、醒目的文字和底部月份导航。",
+            "caption": "作者提供的网页设计示例，展示技能辅助后的视觉方案；并非本刊实测。",
+            "credit": "Paul Bakaus / Impeccable",
+            "source_url": "https://github.com/pbakaus/impeccable/blob/d41d9860b0094dcb68030657da63461212835aaa/README.md",
+            "rights_note": "README 的项目展示图，按固定提交外链引用并署名，未修改；仓库声明 Apache-2.0，不据此概括所有第三方素材许可。",
+            "checked_on": "2026-11-16"
+          }
+        },
+        {
+          "id": "comfyui-discovery-002",
+          "title": "ComfyUI：用节点把图像、视频和音频流程连起来",
+          "date": "2026-11-16",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "图像视频",
+            "创作工具"
+          ],
+          "summary": "ComfyUI 把模型加载、提示词、采样、解码和保存做成可连接的节点，能保存和重复使用完整工作流。除了图像，也可组合视频、音频与 3D 相关模型；适合想控制生成过程、比较参数或接入创作管线的用户。比起一次性的提示框，它的学习成本更高，但过程更容易检查和复用。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/Comfy-Org/ComfyUI"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/Comfy-Org/ComfyUI/blob/e9afbccc2669677076feb08e52658f129cd8c12b/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "由公开 GitHub 原仓库作为本期独立候选；已注意旧地址 comfyanonymous/ComfyUI 的迁移关系，未把迁移视作新项目。读取 README 的用途、快速开始和许可说明，查询 GitHub API 元数据、最近提交及最近三条 issue/PR 元数据。默认分支提交 e9afbccc2669677076feb08e52658f129cd8c12b。核查仅限上述范围；未安装、未运行，未将未合入 PR 当作已有能力。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "Comfy-Org/ComfyUI",
+            "stars": 147033,
+            "checked_on": "2026-11-16",
+            "pushed_at": "2026-11-15T22:16:23Z",
+            "archived": false
+          },
+          "getting_started": "初次使用可从官方桌面版和模板工作流入手，先跑一个模型明确、步骤少的例子，再增加节点。手动安装路径及 API 接口见仓库文档。",
+          "requirements": "具体显存和内存取决于模型与工作流，不能只看应用本身。自定义节点及模型需单独检查；Partner/API 节点可能依赖付费云服务，不能一概视为完全本地。",
+          "license": "核心代码 GPL-3.0；模型、第三方节点和云服务分别采用各自条款。",
+          "image": {
+            "url": "https://github.com/user-attachments/assets/36e065e0-bfae-4456-8c7f-8369d5ea48a2",
+            "alt": "ComfyUI 的节点界面展示模型、提示词、采样器、VAE 解码和图像保存之间的连接。",
+            "caption": "原仓库界面示例：生成过程中的每一步都可以作为节点检查和调整。",
+            "credit": "ComfyUI contributors",
+            "source_url": "https://github.com/Comfy-Org/ComfyUI/blob/e9afbccc2669677076feb08e52658f129cd8c12b/README.md",
+            "rights_note": "固定提交 README 引用的作者界面截图，保持原始附件地址和内容并注明来源；软件许可不等于截图中全部素材的独立授权。",
+            "checked_on": "2026-11-16"
+          }
+        },
+        {
+          "id": "yue2-discovery-002",
+          "title": "YuE2：先写可编辑的乐谱，再生成整首歌",
+          "date": "2026-11-16",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "音乐",
+            "开放权重"
+          ],
+          "summary": "输入歌词和风格，YuE2 先产生旋律与和弦计划，再生成带人声和伴奏的歌曲。中间的 ABC 乐谱可以检查和修改，随后重新生成音频，也提供音乐 Agent skill。它适合希望干预作曲过程的人；编辑会产生新的完整录音，并不保证只改某一段而让其余波形保持不变。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/multimodal-art-projection/YuE"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/multimodal-art-projection/YuE/blob/1116bea76032bee5668e5f097294d082fa0b84f0/README.md"
+            },
+            {
+              "label": "官方演示",
+              "url": "https://map-yue2.github.io/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "核对 YuE 原始仓库现以 YuE2 为默认内容，旧 YuE 保留在 YuE-v1 分支；不是本周首次发布。读取 README 的用途、快速开始和许可说明，查询 GitHub API 元数据、最近提交及最近三条 issue/PR 元数据。默认分支提交 1116bea76032bee5668e5f097294d082fa0b84f0。核查仅限上述范围；未安装、未运行，未将未合入 PR 当作已有能力。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "multimodal-art-projection/YuE",
+            "stars": 13516,
+            "checked_on": "2026-11-16",
+            "pushed_at": "2026-11-01T05:46:34Z",
+            "archived": false
+          },
+          "getting_started": "先到官方项目页听示例。准备本地运行时，按照 Quick start 安装 Python 包并运行 examples/generate.py，输出会保留音频、乐谱及生成设置。",
+          "requirements": "官方常规路径为 Linux、Python 3.12、支持 BF16 且有 24 GB 显存的 NVIDIA GPU；首次使用需下载模型。其他硬件与低显存路径须查看实验性支持范围。",
+          "license": "代码、skill 与文档 Apache-2.0；权重为 CC BY-NC 4.0 加创作者额外许可，README 允许个人创作者变现输出，公司商业使用需另洽许可。不能把权重概括为无限制商用。"
+        },
+        {
+          "id": "deepinfer-discovery-002",
+          "title": "DeepInfer：读一套面向大规模服务的推理核心",
+          "date": "2026-11-16",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "推理系统",
+            "基础设施"
+          ],
+          "summary": "DeepSeek 公开的推理框架整合优化算子、MoE 专家并行、异步调度、结构化输出等能力，当前 README 列出的支持模型为 DeepSeek-V4.1-Flash。适合研究推理系统和大型部署的人阅读；公开版本提供离线推理与核心引擎，完整在线服务还需补上 KV cache 系统、分离部署与负载均衡等组件。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/deepseek-ai/DeepInfer"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/deepseek-ai/DeepInfer/blob/a679bb86ce36e883a98a97733492b686e5b9a08e/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-16",
+            "scope": "从 HelloGitHub 第 127 期人工智能栏目发现。读取 README 的用途、快速开始和许可说明，查询 GitHub API 元数据、最近提交及最近三条 issue/PR 元数据。默认分支提交 a679bb86ce36e883a98a97733492b686e5b9a08e。核查仅限上述范围；未安装、未运行，未将未合入 PR 当作已有能力。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "deepseek-ai/DeepInfer",
+            "stars": 26074,
+            "checked_on": "2026-11-16",
+            "pushed_at": "2026-11-03T07:31:59Z",
+            "archived": false
+          },
+          "getting_started": "先阅读 README 的硬件、前提条件及 examples/offline_inference.py，确认环境和权重准备后再按构建文档运行；性能图及复现脚本在仓库中有入口。",
+          "requirements": "文档列出 NVIDIA SM100 GPU 或华为 Ascend 950 NPU；Linux、Python 3.12、GCC 13+，分别要求 CUDA 13 或 CANN 9.2。不是面向普通笔记本的一键推理应用。",
+          "license": "框架 Apache-2.0；所用模型权重遵循各自模型许可。",
+          "image": {
+            "url": "https://raw.githubusercontent.com/deepseek-ai/DeepInfer/a679bb86ce36e883a98a97733492b686e5b9a08e/doc/images/prefill_pareto.png",
+            "alt": "DeepInfer 的 prefill 延迟与每 GPU 输入吞吐量曲线，不同点对应不同批量 token 数。",
+            "caption": "作者报告的 prefill 吞吐—延迟关系；README 说明 prefill 使用 4 张 SM100 GPU，图中参数与 batch 设置限定了比较条件。",
+            "credit": "DeepSeek-AI",
+            "source_url": "https://github.com/deepseek-ai/DeepInfer/blob/a679bb86ce36e883a98a97733492b686e5b9a08e/README.md",
+            "rights_note": "Apache-2.0 原仓库文档图，使用固定提交外链，保留图中的模型、坐标与实验条件；未由本刊复现。",
+            "checked_on": "2026-11-16"
+          }
+        }
+      ]
+    }
+  ],
+  "source_checks": [
+    {
+      "id": "anthropic-engineering",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "openai-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "deepmind",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "deepseek",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "qwen",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "hf-papers",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "arxiv",
+      "status": "reviewed",
+      "checked_on": "2026-11-16",
+      "note": "核查 Contrastive Discovery v1 摘要、正文选定段落与提交记录；未遍历所有新论文。"
+    },
+    {
+      "id": "openreview",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "openhands",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "langgraph",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "mini-swe-agent",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "vllm",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "metr",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "swebench",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "tau2",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "simon-willison",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "latent-space",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "deepseek-harness",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "hermes-agent",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "dify",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "langchain",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "browser-use",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "ollama",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "firecrawl",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "n8n",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "awesome-llm-apps",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "awesome-ai-agents",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "nature",
+      "status": "partial",
+      "checked_on": "2026-11-16",
+      "note": "出版方可检索页面提供 AIDE 的发表信息与摘要；直连网页与 PDF 被重定向阻挡，未声称阅读全文。"
+    },
+    {
+      "id": "nature-human-behaviour",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "tmlr",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "jmlr",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "neurips",
+      "status": "partial",
+      "checked_on": "2026-11-16",
+      "note": "官方 2026 Downloads 目录含 Contrastive Discovery；单篇页面无法读取，结合作者录用声明核对。"
+    },
+    {
+      "id": "icml",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "iclr",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "acl",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "google-research",
+      "status": "reviewed",
+      "checked_on": "2026-11-16",
+      "note": "读取 sleep framework 与 Language Explorer 官方博客；前者按研究回看窗口收录。"
+    },
+    {
+      "id": "meta-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "microsoft-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "nvidia-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "openai-news",
+      "status": "reviewed",
+      "checked_on": "2026-11-16",
+      "note": "读取官方新闻目录与 11 月 13 日 ChatGPT Wallet 公告，核对 rollout 范围。"
+    },
+    {
+      "id": "anthropic-news",
+      "status": "reviewed",
+      "checked_on": "2026-11-16",
+      "note": "读取官方新闻目录、11 月 9 日模型公告及 11 月 10 日路演公告。"
+    },
+    {
+      "id": "thinking-machines",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "nvidia-news",
+      "status": "reviewed",
+      "checked_on": "2026-11-16",
+      "note": "通过 NVIDIA 投资者关系官网读取 11 月 12 日 CEO 变更原公告。"
+    },
+    {
+      "id": "reuters",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "ap",
+      "status": "partial",
+      "checked_on": "2026-11-16",
+      "note": "检索发现 NVIDIA 人物新闻线索，未完整读取原文；本期只依据公司原公告报道职务变更。"
+    },
+    {
+      "id": "techcrunch",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "the-verge",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "tomshardware",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "jiqizhixin",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "tibo",
+      "status": "unavailable",
+      "checked_on": "2026-11-16",
+      "note": "直接访问 @thsottiaux 返回 403；搜索发现社区归档线索，但无法据此确认本周重置原帖、范围与状态，未入刊。"
+    },
+    {
+      "id": "karpathy",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "sama",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "tibo-archive",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "hellogithub",
+      "status": "reviewed",
+      "checked_on": "2026-11-16",
+      "note": "通过官方仓库目录确认当前最新为第 127 期，读取 Skills 与人工智能栏目；排除第一期已收录项目，并回原仓库核查新候选。"
+    },
+    {
+      "id": "hellogithub-standards",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    },
+    {
+      "id": "github-trending",
+      "status": "not_checked",
+      "checked_on": "2026-11-16",
+      "note": "本轮未单独核查该入口，不据此判断是否有新内容。"
+    }
+  ],
+  "corrections": []
+}

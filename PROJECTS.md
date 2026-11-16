@@ -6,6 +6,10 @@
 
 | 项目 | 方向 | Star 快照 | 查询日期 | 许可 | 入选期刊 |
 | --- | --- | ---: | --- | --- | --- |
+| [pbakaus/impeccable](https://github.com/pbakaus/impeccable) | Skill / 界面设计 | 110,757 | 2026-11-16 | Apache-2.0；图片与示例中的第三方素材仍需遵循各自权利。 | [002](content/002.md#item-impeccable-discovery-002) |
+| [Comfy-Org/ComfyUI](https://github.com/Comfy-Org/ComfyUI) | 图像视频 / 创作工具 | 147,033 | 2026-11-16 | 核心代码 GPL-3.0；模型、第三方节点和云服务分别采用各自条款。 | [002](content/002.md#item-comfyui-discovery-002) |
+| [multimodal-art-projection/YuE](https://github.com/multimodal-art-projection/YuE) | 音乐 / 开放权重 | 13,516 | 2026-11-16 | 代码、skill 与文档 Apache-2.0；权重为 CC BY-NC 4.0 加创作者额外许可，README 允许个人创作者变现输出，公司商业使用需另洽许可。不能把权重概括为无限制商用。 | [002](content/002.md#item-yue2-discovery-002) |
+| [deepseek-ai/DeepInfer](https://github.com/deepseek-ai/DeepInfer) | 推理系统 / 基础设施 | 26,074 | 2026-11-16 | 框架 Apache-2.0；所用模型权重遵循各自模型许可。 | [002](content/002.md#item-deepinfer-discovery-002) |
 | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | Skills / 图表 | 66,627 | 2026-11-12 | MIT | [001](content/001.md#item-diagram-design-discovery) |
 | [debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio) | 语音 / 创作工具 | 108,663 | 2026-11-12 | AGPL-3.0 | [001](content/001.md#item-voicestudio-discovery) |
 | [google/artemis](https://github.com/google/artemis) | 手机自动化 / MCP | 17,296 | 2026-11-12 | Apache-2.0 | [001](content/001.md#item-artemis-discovery) |
