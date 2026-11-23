@@ -7,6 +7,13 @@
     <language>zh-CN</language>
     <atom:link href="https://raw.githubusercontent.com/735034777/agent-llm-weekly/main/feed.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>第 003 期｜Agent 何时求助，世界模型如何互动</title>
+      <link>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-003</link>
+      <guid>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-003</guid>
+      <description>本期从大小模型协作与过程评测谈起，关注 Gemini 4 Neon、Genie 4、Anthropic 完成上市和 AI 与新闻业的合作。工具部分挑选交互式科普、文档解析、机器人学习与视觉分割四个方向，配上原项目示意图。</description>
+      <pubDate>Mon, 23 Nov 2026 09:00:00 +0800</pubDate>
+    </item>
+    <item>
       <title>第 002 期｜让实验回答问题，让工具保留控制</title>
       <link>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-002</link>
       <guid>https://github.com/735034777/agent-llm-weekly/releases/tag/weekly-002</guid>

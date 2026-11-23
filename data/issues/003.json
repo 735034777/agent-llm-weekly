@@ -1,0 +1,809 @@
+{
+  "schema_version": 2,
+  "id": "003",
+  "title": "Agent 何时求助，世界模型如何互动",
+  "start": "2026-11-16",
+  "end": "2026-11-22",
+  "published_on": "2026-11-23",
+  "summary": "本期从大小模型协作与过程评测谈起，关注 Gemini 4 Neon、Genie 4、Anthropic 完成上市和 AI 与新闻业的合作。工具部分挑选交互式科普、文档解析、机器人学习与视觉分割四个方向，配上原项目示意图。",
+  "highlights": [
+    {
+      "entry_id": "agentcollab-2603-26034",
+      "text": "AgentCollab：何时值得让大模型介入？"
+    },
+    {
+      "entry_id": "genie4-project-genie-20261118",
+      "text": "Genie 4：在生成的世界里继续发出指令"
+    },
+    {
+      "entry_id": "anatomy-discovery-003",
+      "text": "Anatomy：把原理讲解做成能操作的装置"
+    }
+  ],
+  "sections": [
+    {
+      "kind": "research",
+      "title": "论文与研究",
+      "intro": "研究回看近一个月的正式会议成果及实验室工程文章；版本日期与发表类型分别注明。",
+      "entries": [
+        {
+          "id": "agentcollab-2603-26034",
+          "title": "AgentCollab：小模型走不动时，再让大模型接手",
+          "date": "2026-10-30",
+          "date_label": "arXiv v2 更新（初稿 3 月 27 日）",
+          "tags": [
+            "EMNLP 主会",
+            "推理效率"
+          ],
+          "summary": "多轮 Agent 的单步推理便宜，不代表整项任务便宜：小模型可能不断搜索、反复试错。AgentCollab 用执行过程中的自我检查判断是否取得进展，停滞时切换到更强模型；多次受阻时，增加大模型连续介入的步数，并设置预算上限。它不需要另训一个路由器。",
+          "links": [
+            {
+              "label": "原文与发表信息",
+              "url": "https://aclanthology.org/2026.emnlp-main.2400/"
+            },
+            {
+              "label": "会议版 PDF",
+              "url": "https://aclanthology.org/2026.emnlp-main.2400.pdf"
+            },
+            {
+              "label": "arXiv 版本记录",
+              "url": "https://arxiv.org/abs/2603.26034"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "核对 ACL Anthology 正式主会条目、DOI 10.18653/2026.emnlp-main.2400、会议版 PDF 方法及第 3 节实验、表 1/2、误判讨论；arXiv 2603.26034 页面确认 v1 为 2026-03-27、v2 为 2026-10-30 09:58:36 UTC，相关 DOI 指向上述会议版。日期使用修订日，不声称本周首发。数值为作者报告，未复现；与全部往期论文和内容对照，无重复。"
+          },
+          "publication": {
+            "type": "conference",
+            "venue": "EMNLP 2026 主会",
+            "status": "published",
+            "evidence_url": "https://aclanthology.org/2026.emnlp-main.2400/"
+          },
+          "insight": "论文在 DDV2 和 WebSailor 上测试。以 DDV2 的 BrowseComp_zh 为例，协作方案准确率为 33.9%，全程大模型为 34.6%，端到端速度为后者的 1.36 倍；使用 Pangu 7B／38B、最多 40 轮、本地 Ascend 910B3 推理。这给工程实践一个可检验的方向：把算力分配与任务是否推进联系起来。",
+          "limits": "这些是作者实验结果。进展判断本身会出错，论文也观察到 WebSailor 的误判更多；本地速度收益不能直接等同于云 API 省钱比例。本刊首次介绍该成果，已核对 10 月 EMNLP 主会论文集，日期另列 10 月 30 日的 arXiv 修订。"
+        },
+        {
+          "id": "procedural-blind-spots-emnlp-1162",
+          "title": "Agent 答对了，还要检查它是怎么做到的",
+          "date": "2026-10-24",
+          "date_label": "会议论文集日期起点（10月24—29日）",
+          "tags": [
+            "EMNLP Findings",
+            "过程评测"
+          ],
+          "summary": "《Procedural Blind Spots in Agent Evaluation》梳理了 Agent 评测的过程盲区：很多评测仍以任务完成为中心，过程检查往往只检查局部，而 Agent 对用户说了什么、这些说法是否有执行证据，覆盖尤其不足。",
+          "links": [
+            {
+              "label": "原文与发表信息",
+              "url": "https://aclanthology.org/2026.findings-emnlp.1162/"
+            },
+            {
+              "label": "会议版 PDF",
+              "url": "https://aclanthology.org/2026.findings-emnlp.1162.pdf"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "读取 Anthology 元数据、摘要，以及会议版 PDF 的引言、过程完整性与审计框架定义。核对 DOI 10.18653/2026.findings-emnlp.1162 与 PDF 页眉 October 24–29, 2026；在线首次公开的具体日未得到确认。未逐篇重做综述编码或复核附录全部样本，正文仅概述上述可读部分。与全部往期对照，无重复。"
+          },
+          "publication": {
+            "type": "conference",
+            "venue": "Findings of EMNLP 2026",
+            "status": "published",
+            "evidence_url": "https://aclanthology.org/2026.findings-emnlp.1162/"
+          },
+          "insight": "值得借鉴的是统一审计视角：把行动、观测、规则与对用户的陈述联系起来。对实际产品，可以据此补查“声称完成的操作是否真的发生”，而不只给最终回答打分；这是本刊根据论文框架提出的应用建议。",
+          "limits": "这是一篇综述与覆盖分析，发表于 Findings，不能视为某个新系统胜过所有基线的实验。Anthology 只给出发表月份；此处按 PDF 标注的会议论文集日期起点编目，不把它当作精确的首次上线日。"
+        },
+        {
+          "id": "codex-sandbox-20261118",
+          "title": "Codex 的沙箱：把执行边界交给操作系统",
+          "date": "2026-11-18",
+          "date_label": "官方工程博客",
+          "tags": [
+            "执行安全",
+            "编程 Agent"
+          ],
+          "summary": "OpenAI 的《Inside the Codex sandbox》介绍了文件、网络与子进程权限如何落到操作系统层面。文章选择利用原生系统机制，让 Agent 在熟悉的开发环境里运行，同时约束命令及其派生进程能改动和连接什么。",
+          "links": [
+            {
+              "label": "原文与发表信息",
+              "url": "https://openai.com/index/inside-the-codex-sandbox/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "读取 2026-11-18 官方文章中权限模型、原生沙箱、文件与网络限制、子进程继承及残余风险说明；未审计实现代码或运行攻击测试。与往期研究、项目及新闻逐条对照，无重复。"
+          },
+          "publication": {
+            "type": "blog",
+            "venue": "OpenAI Engineering"
+          },
+          "insight": "对做 Agent 的人，值得读的是模型决策与执行权限的分工，以及跨 macOS、Linux、Windows 统一权限配置的实现取舍。它提供的是系统设计经验，不能只用一句提示词替代这些执行限制。",
+          "limits": "沙箱不是全面的隐私隔离：文中工作区配置仍允许较广泛的文件读取，也讨论了可写依赖被用户的沙箱外工具再次执行的风险。这是官方工程说明，不是同行评审论文或本刊独立安全审计。"
+        }
+      ]
+    },
+    {
+      "kind": "news",
+      "title": "新闻动态",
+      "intro": "覆盖 11 月 16—22 日。上市条目是上期路演的后续，明确列出本周新增事实。",
+      "entries": [
+        {
+          "id": "gemini4-neon-20261118",
+          "title": "Gemini 4 Neon 发布：面向长任务的新模型",
+          "date": "2026-11-18",
+          "date_label": "公告／报道日期",
+          "tags": [
+            "模型发布",
+            "Google"
+          ],
+          "summary": "Google 发布 Gemini 4 Neon，提供 100 万 token 上下文，重点面向软件开发、知识工作和科学任务。公告定价为每百万输入 token 3 美元、输出 15 美元，缓存输入为 0.15 美元；同时开始向 Gemini API、企业服务，以及部分 Pro／Ultra 产品入口推出。",
+          "links": [
+            {
+              "label": "直接来源",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "读取官方公告的价格、上下文窗口和 rollout 段落。未独立复核外部排行榜或测试模型；与全部往期按模型及事件对照，未收录过 Neon。"
+          },
+          "context": "官方强调任务中途接受用户修正、长流程工具使用与压缩上下文的能力；实际可用入口和订阅范围以公告及账户显示为准。",
+          "date_basis": "Google 官方文章标注 Nov 18, 2026；未标明具体时区，按原文日期记录，非个人账户实际开通时间。"
+        },
+        {
+          "id": "genie4-project-genie-20261118",
+          "title": "Project Genie 开放 Genie 4：边探索，边改世界",
+          "date": "2026-11-18",
+          "date_label": "公告／报道日期",
+          "tags": [
+            "世界模型",
+            "互动创作"
+          ],
+          "summary": "Google 向符合条件的 AI Ultra 用户推出搭载 Genie 4 的 Project Genie 更新：探索过程中可以用文字改变天气、角色或事件，并加入随场景变化的原生音频。新版创作 Agent 帮助搭建世界，社区图库则支持分享、探索和再创作；Pro 用户可加入候补名单。",
+          "links": [
+            {
+              "label": "直接来源",
+              "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/genie-4-now-available-project-genie/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "读取官方文章正文中 Genie 4、创作 Agent、图库、适用订阅及局限段落，未把网页自动生成摘要当作唯一证据。未试用；与全部往期对照，无同一产品事件。"
+          },
+          "context": "Google 同时说明，镜头延迟、复杂物理交互、实时音频精度及长期场景一致性仍是研究问题。这是实验产品开放范围和交互能力的更新，不能据演示推断已经具备稳定的现实物理模拟能力。",
+          "date_basis": "官方文章标注 Nov 18, 2026，未给出时区；按公告日期记录。"
+        },
+        {
+          "id": "anthropic-ipo-close-20261120",
+          "title": "上期追踪：Anthropic 完成 IPO，发行价为 83 美元",
+          "date": "2026-11-20",
+          "date_label": "公告／报道日期",
+          "tags": [
+            "公司动态",
+            "上市进展"
+          ],
+          "summary": "相较上期的启动路演，本周新增的是发行已完成。Anthropic 公告称，A 类普通股于 11 月 19 日以 ANT 为代码在纳斯达克开始交易，11 月 20 日完成 IPO，发行价为每股 83 美元。公司从本次公开发行获得约 916 亿美元毛收入，尚未扣除承销折扣、佣金及其他发行费用。",
+          "links": [
+            {
+              "label": "直接来源",
+              "url": "https://www.anthropic.com/news/ipo-close"
+            },
+            {
+              "label": "上期：启动路演",
+              "url": "https://github.com/735034777/agent-llm-weekly/blob/main/content/002.md#item-anthropic-roadshow-20261110"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "读取官方完成发行公告，核对 $83、Nasdaq ANT、交易日期及公司毛收入约 $91.6 billion；区分约 $93.5 billion 的 IPO 总毛额和另行同步私募。与 002 期路演条目全文对照，保留完成发行这一实质新事实，并附往期链接；未重复介绍路演背景。"
+          },
+          "context": "这条仅追踪从拟发行到完成发行的变化。公司所得与包含售股股东的发行总额口径不同，也不代表净融资或估值。",
+          "date_basis": "Anthropic 公告日期为 2026-11-20，正文分别列出 11 月 19 日开始交易与 20 日完成发行；不把两者混为同一天。"
+        },
+        {
+          "id": "us-china-ai-safety-20261120",
+          "title": "中美领导人谈 AI 安全规则，尚不是一份新协议",
+          "date": "2026-11-20",
+          "date_label": "公告／报道日期",
+          "tags": [
+            "国际动态",
+            "AI 治理"
+          ],
+          "summary": "据《韩国中央日报》署名 Reuters 的报道，特朗普在 11 月 19 日接受 Fox News 采访时表示，他与习近平希望就合理的 AI 安全规则开展合作。报道同时引述中国驻美使馆当天声明，主张加强沟通协调、防范 AI 安全风险，并确保 AI 始终处于人类控制之下。",
+          "links": [
+            {
+              "label": "直接来源",
+              "url": "https://www.koreajoongangdaily.com/world/trump-says-he-and-xi-want-moderate-ai-rules/12982296"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "读取 Korea JoongAng Daily 完整报道，页尾署名 Reuters；核对采访与使馆声明的归属。未取得采访完整录像或双方共同签署文本，因此仅转述媒体报道，不扩写为已达成协议。未采用同文中与本条无关、尚有核实限制的人物指控。与全部往期对照，无重复。"
+          },
+          "context": "目前这条材料支持的是公开表态，不能据此写成双方已经签署一套监管规则或形成具体执行机制。",
+          "date_basis": "转载页标注 November 20, 2026 - 8:58 a.m.，未显示时区；按页面报道日期记录，正文中的采访与声明发生于 11 月 19 日，均在新闻周内。"
+        },
+        {
+          "id": "figaro-openai-partnership-20261118",
+          "title": "《费加罗报》与 OpenAI 合作，新闻将以摘要和链接进入 ChatGPT",
+          "date": "2026-11-18",
+          "date_label": "公告／报道日期",
+          "tags": [
+            "新闻业",
+            "内容合作"
+          ],
+          "summary": "费加罗集团与 OpenAI 宣布合作，覆盖《费加罗报》及关联刊物的当期报道和档案内容，计划通过摘要、摘录及原文链接让读者在 ChatGPT 中发现这些报道。公告称，费加罗保留编辑独立性和对新闻内容的控制。",
+          "links": [
+            {
+              "label": "直接来源",
+              "url": "https://openai.com/index/le-groupe-figaro-and-openai-announce-partnership/"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "读取官方合作公告全文，核对内容范围、摘要／摘录／链接形式、编辑独立性和内部工具部署计划。未测试 ChatGPT 中的实际检索覆盖；与全部往期对照，无重复。"
+          },
+          "context": "集团还计划在不同团队引入 ChatGPT Enterprise。这里是已宣布的合作及后续部署计划，公告没有披露交易金额，也未据此证明所有内容已在每个账户开放。",
+          "date_basis": "OpenAI 官方文章标注 November 18, 2026，未给具体时区；按公告日期记录。"
+        }
+      ]
+    },
+    {
+      "kind": "projects",
+      "title": "开源项目",
+      "intro": "以下四个项目均为本刊首次收录，资料与 star 查询于 11 月 23 日，不代表本周刚发布。SAM 3 使用自定义许可，条目单独说明。",
+      "entries": [
+        {
+          "id": "anatomy-discovery-003",
+          "title": "Anatomy：让科普插图变成可以操作的小装置",
+          "date": "2026-11-23",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "Skill",
+            "交互式科普"
+          ],
+          "summary": "输入一个机械或物理概念，让编程 Agent 生成可操作的等轴测装置：波纹水槽能改变波形，发动机可以拆开看内部。Anatomy 提供技能说明、绘图组件和检查工具，适合做机制讲解、课程演示和网页中的交互插图。它更擅长机器、仪器等有具体结构的对象。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/wheresryan22/anatomy"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/wheresryan22/anatomy/blob/1482e8469b0a9e0d8cc18ea2740a01423d29ae80/README.md"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "从 HelloGitHub 第 127 期 Skills 栏目发现。读取固定提交 README 的用途、快速开始、要求与许可说明，并查询 GitHub API 仓库元数据、默认分支提交和最近三条 issue/PR 元数据。提交 1482e8469b0a9e0d8cc18ea2740a01423d29ae80。讨论仅核对标题、状态与更新时间，未深入复核其中的问题或将未合入 PR 当作能力。与全部往期 001、002 的原始仓库及别名对照，未曾收录。未安装或运行。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "wheresryan22/anatomy",
+            "stars": 28723,
+            "checked_on": "2026-11-23",
+            "pushed_at": "2026-10-18T20:20:24Z",
+            "archived": false
+          },
+          "license": "MIT；生成素材和第三方内容需另核权利。",
+          "getting_started": "先浏览仓库示例，再按 README 为自己的 Agent 安装技能；从波纹水槽或简单仪表开始，比直接要求复杂机械更容易判断结果是否合理。",
+          "requirements": "工具要求 Node.js 20.10+；自动截图与审查需 Chrome／Chromium，动态着色需 WebGL。生成过程仍依赖所用编程 Agent；3D 模式标为 beta，复杂图可能耗时较长。",
+          "image": {
+            "url": "https://raw.githubusercontent.com/wheresryan22/anatomy/1482e8469b0a9e0d8cc18ea2740a01423d29ae80/.github/assets/ripple-tank.webp",
+            "alt": "等轴测波纹水槽，上方双振源在水面产生干涉波纹，灯光把图样投向下方底板。",
+            "caption": "作者的波纹水槽交互图示例；此处展示原图，并非本刊运行结果。",
+            "credit": "Ryan / Anatomy",
+            "source_url": "https://github.com/wheresryan22/anatomy/blob/1482e8469b0a9e0d8cc18ea2740a01423d29ae80/README.md",
+            "rights_note": "README 项目展示图，MIT 仓库原图；固定提交外链、保留署名，未修改。已实际查看图像内容并确认返回图片。",
+            "checked_on": "2026-11-23"
+          }
+        },
+        {
+          "id": "paddleocr-discovery-003",
+          "title": "PaddleOCR：把扫描件、表格和公式变成可处理的数据",
+          "date": "2026-11-23",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "OCR",
+            "文档解析"
+          ],
+          "summary": "处理 PDF 或扫描图片时，常常不仅要识别文字，还要保留版面、表格和公式。PaddleOCR 提供文字识别、PP-StructureV3 文档结构解析及视觉语言模型路线，可输出 Markdown 或 JSON，适合文档数字化、资料检索和数据预处理。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/PaddlePaddle/PaddleOCR"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/PaddlePaddle/PaddleOCR/blob/dab3fe35379033fdcb2d0e9572fac0b36c9a9ebf/README.md"
+            },
+            {
+              "label": "官方体验入口",
+              "url": "https://www.paddleocr.com"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "从官方仓库独立补充文档 AI 方向；作为首次发现，不称本周新发布。读取固定提交 README 的用途、快速开始、要求与许可说明，并查询 GitHub API 仓库元数据、默认分支提交和最近三条 issue/PR 元数据。提交 dab3fe35379033fdcb2d0e9572fac0b36c9a9ebf。讨论仅核对标题、状态与更新时间，未深入复核其中的问题或将未合入 PR 当作能力。与全部往期 001、002 的原始仓库及别名对照，未曾收录。未安装或运行。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "PaddlePaddle/PaddleOCR",
+            "stars": 93018,
+            "checked_on": "2026-11-23",
+            "pushed_at": "2026-09-16T03:31:50Z",
+            "archived": false
+          },
+          "license": "Apache-2.0；模型、数据及第三方素材另按对应条款。",
+          "getting_started": "先在官方体验中心用少量样例比较效果；本地部署按 README 分流到文字 OCR、PP-StructureV3 或 PaddleOCR-VL 的对应教程，避免把不同管线的安装要求混用。",
+          "requirements": "不同管线、推理后端和设备的依赖有差别；仓库提供 CPU、GPU 等部署路径，不能用“支持 CPU”推断所有模型都能低成本运行。复杂文档仍需抽查阅读顺序和表格结构。",
+          "image": {
+            "url": "https://raw.githubusercontent.com/cuicheng01/PaddleX_doc_images/b21e1e6d818db6537d158e794cba8b050af01243/images/paddleocr/README/Arch.jpg",
+            "alt": "PaddleOCR 架构图，从硬件和推理框架到文字识别、文档解析、文档理解及上层应用。",
+            "caption": "README 的组件分层示意；图中模型版本早于当前文档，不作为最新型号清单。",
+            "credit": "PaddlePaddle / PaddleOCR；原图托管于 PaddleX_doc_images",
+            "source_url": "https://github.com/PaddlePaddle/PaddleOCR/blob/dab3fe35379033fdcb2d0e9572fac0b36c9a9ebf/README.md",
+            "rights_note": "沿官方 README 引用的原始图片仓库固定提交外链，保留图内标识；未修改，不把代码的 Apache-2.0 声明扩大为全部图片素材许可。已实际查看图像内容并确认返回图片。",
+            "checked_on": "2026-11-23"
+          }
+        },
+        {
+          "id": "lerobot-discovery-003",
+          "title": "LeRobot：从示范数据到机器人策略的一套工具",
+          "date": "2026-11-23",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "机器人",
+            "具身智能"
+          ],
+          "summary": "LeRobot 将机器人接口、示范数据、策略训练和评测放进同一个 Python 工具库。它用视频或图片配合状态／动作数据记录过程，支持多类机器人及学习策略。对于想进入具身智能的人，可以先理解公开数据和仿真评测，再决定是否购买、组装硬件。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/huggingface/lerobot"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/huggingface/lerobot/blob/e5be0c16be1df4ae004abb4167842a7456c4cd54/README.md"
+            },
+            {
+              "label": "安装文档",
+              "url": "https://huggingface.co/docs/lerobot/installation"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "从 Hugging Face 官方仓库独立补充机器人方向。读取固定提交 README 的用途、快速开始、要求与许可说明，并查询 GitHub API 仓库元数据、默认分支提交和最近三条 issue/PR 元数据。提交 e5be0c16be1df4ae004abb4167842a7456c4cd54。讨论仅核对标题、状态与更新时间，未深入复核其中的问题或将未合入 PR 当作能力。与全部往期 001、002 的原始仓库及别名对照，未曾收录。未安装或运行。另读同一提交 pyproject.toml，核对 requires-python。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "huggingface/lerobot",
+            "stars": 29031,
+            "checked_on": "2026-11-23",
+            "pushed_at": "2026-11-22T14:29:35Z",
+            "archived": false
+          },
+          "license": "Apache-2.0；外部策略权重、数据集与硬件资料另核许可。",
+          "getting_started": "从 README 的 Quick Start 与数据集示例进入；已有策略可通过 lerobot-eval 做仿真评估，实机运行则沿官方硬件配置与部署文档继续。",
+          "requirements": "当前所查源码要求 Python 3.12+。基础安装、数据集、训练和具体机器人驱动采用不同 extras；训练算力随策略变化，实机还需要匹配设备、相机和校准。",
+          "image": {
+            "url": "https://raw.githubusercontent.com/huggingface/lerobot/e5be0c16be1df4ae004abb4167842a7456c4cd54/media/readme/VLA_architecture.jpg",
+            "alt": "GR00T 示例架构：视觉和文字输入经过编码，与机器人状态及动作分支结合，输出运动动作。",
+            "caption": "LeRobot README 中的 GR00T 架构示例；不是所有策略共用的结构，也不是本刊实测。",
+            "credit": "Hugging Face / LeRobot；README 所引 GR00T 架构图",
+            "source_url": "https://github.com/huggingface/lerobot/blob/e5be0c16be1df4ae004abb4167842a7456c4cd54/README.md",
+            "rights_note": "固定提交的 README 配图外链，未修改并保留归属；代码许可不自动覆盖图中第三方材料。已实际查看图像内容并确认返回图片。",
+            "checked_on": "2026-11-23"
+          }
+        },
+        {
+          "id": "sam3-discovery-003",
+          "title": "SAM 3：用文字或示例圈出图像和视频中的对象",
+          "date": "2026-11-23",
+          "date_label": "本期发现／资料快照",
+          "tags": [
+            "视觉分割",
+            "开放权重"
+          ],
+          "summary": "想把画面中的“企鹅”全部找出来，或在视频里持续跟踪它们，SAM 3 提供文字、点、框、掩码和示例等提示方式，输出对象掩码与相关结果。仓库包含图片、视频及交互修正 notebook，适合标注辅助、视觉研究和编辑工具开发。",
+          "links": [
+            {
+              "label": "GitHub",
+              "url": "https://github.com/facebookresearch/sam3"
+            },
+            {
+              "label": "文档快照",
+              "url": "https://github.com/facebookresearch/sam3/blob/31cb7e624e4fe95301b1be1d4e809111593d2e45/README.md"
+            },
+            {
+              "label": "官方 Demo",
+              "url": "https://segment-anything.com/"
+            },
+            {
+              "label": "SAM 许可全文",
+              "url": "https://github.com/facebookresearch/sam3/blob/31cb7e624e4fe95301b1be1d4e809111593d2e45/LICENSE"
+            }
+          ],
+          "verification": {
+            "level": "source-reviewed",
+            "checked_on": "2026-11-23",
+            "scope": "从 Meta 官方仓库独立补充视觉方向；已额外读取固定提交的 LICENSE。读取固定提交 README 的用途、快速开始、要求与许可说明，并查询 GitHub API 仓库元数据、默认分支提交和最近三条 issue/PR 元数据。提交 31cb7e624e4fe95301b1be1d4e809111593d2e45。讨论仅核对标题、状态与更新时间，未深入复核其中的问题或将未合入 PR 当作能力。与全部往期 001、002 的原始仓库及别名对照，未曾收录。未安装或运行。"
+          },
+          "selection": "discovery",
+          "github": {
+            "repository": "facebookresearch/sam3",
+            "stars": 12376,
+            "checked_on": "2026-11-23",
+            "pushed_at": "2026-11-17T09:34:51Z",
+            "archived": false
+          },
+          "license": "自定义 SAM License，含使用限制；不等同于 MIT／Apache 开源许可。",
+          "getting_started": "先看官方 Demo 和图片 notebook；本地使用前按仓库说明申请 Hugging Face 权重访问，通过后再配置环境并下载。仓库亦包含 SAM 3.1 更新，此处作为整个项目的首次介绍。",
+          "requirements": "README 的前置要求是 Python 3.12+、PyTorch 2.7+ 和支持 CUDA 12.6+ 的 GPU；应以对应安装示例匹配版本。权重访问需要审批，公开源码不等于可以立即无条件下载全部材料。",
+          "image": {
+            "url": "https://raw.githubusercontent.com/facebookresearch/sam3/31cb7e624e4fe95301b1be1d4e809111593d2e45/assets/model_diagram.png",
+            "alt": "SAM 3 接收企鹅文字或图像示例，将检测到的对象掩码与跨帧跟踪掩码合并，并使用记忆库。",
+            "caption": "官方模型结构图，用企鹅示例说明检测与视频跟踪如何配合。",
+            "credit": "Meta / SAM 3",
+            "source_url": "https://github.com/facebookresearch/sam3/blob/31cb7e624e4fe95301b1be1d4e809111593d2e45/README.md",
+            "rights_note": "官方仓库模型示意图，固定提交外链、未修改；材料适用自定义 SAM License，条目附完整许可链接，保留 Meta 归属。已实际查看图像内容并确认返回图片。",
+            "checked_on": "2026-11-23"
+          }
+        }
+      ]
+    }
+  ],
+  "source_checks": [
+    {
+      "id": "anthropic-engineering",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "openai-research",
+      "status": "partial",
+      "checked_on": "2026-11-23",
+      "note": "经 OpenAI 新闻索引定位并读取 Codex sandbox 工程文章；未全面扫描研究目录或独立审计实现。"
+    },
+    {
+      "id": "deepmind",
+      "status": "partial",
+      "checked_on": "2026-11-23",
+      "note": "检查 DeepMind 博客入口，进入 Google 官方 Neon 和 Project Genie 公告并阅读正文；未遍历其他文章。"
+    },
+    {
+      "id": "deepseek",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "qwen",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "hf-papers",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "arxiv",
+      "status": "partial",
+      "checked_on": "2026-11-23",
+      "note": "核查 AgentCollab 原始版本历史与关联会议 DOI；未遍历本周所有分类。"
+    },
+    {
+      "id": "openreview",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "openhands",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "langgraph",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "mini-swe-agent",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "vllm",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "metr",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "swebench",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "tau2",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "simon-willison",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "latent-space",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "deepseek-harness",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "hermes-agent",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "dify",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "langchain",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "browser-use",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "ollama",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "firecrawl",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "n8n",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "awesome-llm-apps",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "awesome-ai-agents",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "nature",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "nature-human-behaviour",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "tmlr",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "jmlr",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "neurips",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "icml",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "iclr",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "acl",
+      "status": "reviewed",
+      "checked_on": "2026-11-23",
+      "note": "核对两篇入选论文的主会／Findings 归属、正式论文集和 PDF 指定章节；未遍历全部会议论文。"
+    },
+    {
+      "id": "google-research",
+      "status": "partial",
+      "checked_on": "2026-11-23",
+      "note": "检查 Google Research 博客列表及 Duplex 文章入口，未对全部正文逐一核查；本期未选 Duplex。"
+    },
+    {
+      "id": "meta-research",
+      "status": "partial",
+      "checked_on": "2026-11-23",
+      "note": "仅核查 SAM 3 官方仓库、README、许可与元数据，未遍历 Meta 研究门户。"
+    },
+    {
+      "id": "microsoft-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "nvidia-research",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "openai-news",
+      "status": "reviewed",
+      "checked_on": "2026-11-23",
+      "note": "检查新闻索引并读 Codex sandbox、费加罗合作两篇原文，入选事实截至 11 月 22 日。"
+    },
+    {
+      "id": "anthropic-news",
+      "status": "reviewed",
+      "checked_on": "2026-11-23",
+      "note": "检查官方新闻列表及 IPO 完成公告，并与上期路演报道对照，只保留实质新进展。"
+    },
+    {
+      "id": "thinking-machines",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "nvidia-news",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "reuters",
+      "status": "partial",
+      "checked_on": "2026-11-23",
+      "note": "通过 Korea JoongAng Daily 的 Reuters 署名转载读取 AI 安全规则报道；未取得 Reuters 原站全文或采访完整视频。"
+    },
+    {
+      "id": "ap",
+      "status": "unavailable",
+      "checked_on": "2026-11-23",
+      "note": "检索到 AI 辅助数学证明的报道线索，AP 原文打开失败；未将搜索摘要当作完整核实，未收录。"
+    },
+    {
+      "id": "techcrunch",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "the-verge",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "tomshardware",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "jiqizhixin",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "tibo",
+      "status": "unavailable",
+      "checked_on": "2026-11-23",
+      "note": "固定账号 @thsottiaux；尝试打开本周桌面产品更新原帖 https://x.com/thsottiaux/status/2123861214644347122 返回 403。没有依据社区转述刊登本周重置或到账消息。"
+    },
+    {
+      "id": "karpathy",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "sama",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "tibo-archive",
+      "status": "partial",
+      "checked_on": "2026-11-23",
+      "note": "搜索社区归档、聚合与镜像定位可能的原帖，未确认目录所列归档持续可读；辅助线索未替代官方核验，未入刊。"
+    },
+    {
+      "id": "hellogithub",
+      "status": "reviewed",
+      "checked_on": "2026-11-23",
+      "note": "核对官方仓库期刊目录，最新可见为第 127 期；读取 Skills／人工智能候选并对照全部往期，仅 Anatomy 为本期首次收录。独立写文案，图片来自项目原仓库。"
+    },
+    {
+      "id": "hellogithub-standards",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    },
+    {
+      "id": "github-trending",
+      "status": "not_checked",
+      "checked_on": "2026-11-23",
+      "note": "本期未单独检查此入口；不据此判断其没有更新。"
+    }
+  ],
+  "corrections": []
+}
